@@ -1,0 +1,14 @@
+.error {
+  display: block;
+  width: 100%;
+  padding-top: 5%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 200%;
+  color: #a05858;
+}
+
+.error a {
+  color: #693a3a;
+}

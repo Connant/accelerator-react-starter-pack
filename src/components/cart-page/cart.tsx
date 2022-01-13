@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 
-export default function Cart(): JSX.Element {
+export default function CartPage(): JSX.Element {
   return (
     <React.Fragment>
       <Header />

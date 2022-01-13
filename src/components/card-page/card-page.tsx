@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { STAR_ICON, STAR_FULL_ICON } from '../../const';
 import { getGuitarsList } from '../../store/selectors';
 import { ratingList } from '../../utils';
-import IconRating from '../card/card-rating/icon-rating';
+import IconRating from '../card-rating/icon-rating';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 

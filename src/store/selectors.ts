@@ -6,5 +6,6 @@ import { OrderOption, SortingMethod } from '../const';
 export const getGuitarsList = (state: State): GuitarsList => state[NameSpace.Main].guitarsList;
 export const selectSortType = (state: State): SortingMethod => state[NameSpace.App].SortingMethod;
 export const selectSortOrder = (state: State): OrderOption | '' => state[NameSpace.App].sortOrder;
+export const getSearchGuitars = (state: State): GuitarsList => state[NameSpace.Search].guitars;
 
 

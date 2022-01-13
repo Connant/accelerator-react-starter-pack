@@ -1,7 +1,7 @@
 import { ThunkActionResult } from '../types/actions';
-import { APIRoute } from '../const';
-import { GuitarsList } from '../types/guitar';
-import { setFillingGuitarsList, loadGuitarsRequest, loadGuitarsSuccess } from './action';
+import { APIRoute, requestParameters } from '../const';
+import { loadGuitarsRequest, loadGuitarsSuccess, loadSearchResults } from './action';
+import { GuitarType } from '../types/guitar';
 
 
 export const fetchGuitarsAction = (sort = {}): ThunkActionResult => (
@@ -12,8 +12,15 @@ export const fetchGuitarsAction = (sort = {}): ThunkActionResult => (
   }
 );
 
-export const fetchGuitarsList = ():ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<GuitarsList>(APIRoute.Guitars);
-    dispatch(setFillingGuitarsList(data));
-  };
+export const searchGuitarsWithParams =
+  (searchParams: string): ThunkActionResult =>
+    async ( dispatch, _getState, api): Promise<void> => {
+      try {
+        const { data } = await api.get<GuitarType[]>(`${APIRoute.Guitars}?${requestParameters.NameLike}=${searchParams}`);
+        dispatch(loadSearchResults(data));
+      } catch {
+        const { data } = await api.get(APIRoute.Guitars);
+        dispatch(loadGuitarsSuccess(data));
+      }
+    };
+

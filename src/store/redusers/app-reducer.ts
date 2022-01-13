@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setSortingMethod, setSortOrder } from './action';
-import { OrderOption, SortingMethod } from '../const';
+import { setSortingMethod, setSortOrder } from '../action';
+import { OrderOption, SortingMethod } from '../../const';
 
 export type DataType = {
   SortingMethod: SortingMethod,

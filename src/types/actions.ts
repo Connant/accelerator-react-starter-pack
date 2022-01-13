@@ -8,6 +8,7 @@ export enum ActionType {
   setSortOrder = 'app/setSortOrder',
   LoadGuitarsRequest = 'data/loadGuitarsRequest',
   LoadGuitarsSuccess = 'data/loadGuitarsSuccess',
+  LoadSearchResults = 'search/loadSearchResults',
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;

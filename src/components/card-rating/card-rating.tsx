@@ -1,14 +1,14 @@
 
 import IconRating from './icon-rating';
-import { ratingList } from '../../../utils';
-import { GuitarType } from '../../../types/guitar';
-import { STAR_FULL_ICON, STAR_ICON } from '../../../const';
+import { ratingList } from '../../utils';
+import { GuitarType } from '../../types/guitar';
+import { STAR_FULL_ICON, STAR_ICON } from '../../const';
 
 type PropsType = {
   guitar: GuitarType;
 };
 
-function CardRating(props: PropsType): JSX.Element {
+export default function CardRating(props: PropsType): JSX.Element {
 
   const { guitar } = props;
 
@@ -34,4 +34,3 @@ function CardRating(props: PropsType): JSX.Element {
   );
 }
 
-export default CardRating;

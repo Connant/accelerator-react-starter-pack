@@ -4,6 +4,7 @@ import Sorting from './sorting/sorting';
 import CardsList from '../card-list/cards-list';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import BreadCrumbs from './bread-crumbs/bread-crumbs';
 
 export default function CatalogPage ():JSX.Element {
 
@@ -13,12 +14,7 @@ export default function CatalogPage ():JSX.Element {
       <main className="page-content">
         <div className="container">
           <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
-          <ul className="breadcrumbs page-content__breadcrumbs">
-            <li className="breadcrumbs__item"><a className="link" href="./main.html">Главная</a>
-            </li>
-            <li className="breadcrumbs__item"><a className="link" href="/">Каталог</a>
-            </li>
-          </ul>
+          <BreadCrumbs />
           <div className="catalog">
             <Filter />
             <Sorting />

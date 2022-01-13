@@ -12,9 +12,9 @@ export default function CardsList():JSX.Element {
     <React.Fragment>
 
       <div className="cards catalog__cards">
-        {guitarsList.slice(0, 9).map((guitar) => (
+        {guitarsList.length === 0 ? 'Пусто' : guitarsList.slice(0, 9).map((guitar) => (
           <Card key={guitar.id} guitar={guitar} />
-        ))};
+        ))}
       </div>
 
       <Pagination />

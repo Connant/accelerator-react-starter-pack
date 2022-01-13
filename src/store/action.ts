@@ -36,4 +36,12 @@ export const loadGuitarsSuccess = createAction(
   }),
 );
 
+export const loadSearchResults = createAction(
+  ActionType.LoadSearchResults, (guitars: GuitarType[]) => ({
+    payload: {
+      guitars,
+    },
+  }),
+);
+
 

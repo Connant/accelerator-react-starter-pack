@@ -5,17 +5,12 @@ export enum APIRoute {
   Comments = '/guitars/:id/comments',
 }
 
+
 export enum AppRoute {
   Main = '/',
   Cart = '/cart',
-  CardPage = '/cardpage'
-}
-
-export enum SortType {
-  Price = 'По цене',
-  Popularity = 'По популярности',
-  Ascend = 'По возрастанию',
-  Descend = 'По убыванию'
+  CardPage = 'guitars/:id',
+  Guitars = '/guitars',
 }
 
 export const STAR_FULL_ICON = 'icon-full-star';
@@ -61,6 +56,11 @@ export enum OrderOption {
   Desc = 'desc',
 }
 
-export const sortTypeButton = 'catalog-sort__type-button';
-export const sortOrderButton = 'catalog-sort__order-button';
+export enum StatusLoading {
+  Idle = 'idle',
+  Loading = 'loading',
+  Succeeded = 'succeeded',
+  Failed = 'failed',
+}
 
+export const REQUEST_DELAY = 1000;

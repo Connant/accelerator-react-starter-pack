@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { GuitarType } from '../../types/guitar';
 import { replaceImagePath } from '../../utils';
-import CardRating from './card-rating/card-rating';
+import CardRating from '../card-rating/card-rating';
 
 type GuitarCardProps = {
   guitar: GuitarType;
 };
 
-function GuitarCard( props: GuitarCardProps ): JSX.Element {
+export default function GuitarCard( props: GuitarCardProps ): JSX.Element {
   const { guitar } = props;
 
   return (
@@ -37,4 +37,3 @@ function GuitarCard( props: GuitarCardProps ): JSX.Element {
   );
 }
 
-export default GuitarCard;

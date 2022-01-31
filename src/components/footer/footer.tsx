@@ -8,7 +8,7 @@ export default function Footer():JSX.Element {
     <footer className="footer">
       <div className="footer__container container">
         <a href="/" className="footer__logo logo">
-          <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип"/>
+          <img className="logo__img" width="70" height="70" src="/img/svg/logo.svg" alt="Логотип"/>
         </a>
         <Socials />
         <About />

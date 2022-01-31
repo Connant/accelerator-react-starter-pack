@@ -1,36 +1,30 @@
-import { Router, Switch, Route } from 'react-router-dom';
-import browserHistory from '../../browser-history/browser-history';
-import { AppRoute } from '../../const';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { AppRoute, PAGINATION_DEFAULT_PAGE } from '../../const';
 import CardPage from '../card-page/card-page';
 import CartPage from '../cart-page/cart';
 import CatalogPage from '../catalog-page/catalog-page';
 import Error from '../error/error';
 
+// https://habr.com/ru/company/kts/blog/598835/
+// https://devsday.ru/blog/details/71441
 
-function App(): JSX.Element {
+
+export default function App(): JSX.Element {
   return (
-    <Router history={browserHistory}>
-      <Switch>
+    <Routes>
 
-        <Route path={AppRoute.Main} exact>
-          <CatalogPage/>
-        </Route>
+      <Route index element={<Navigate to={(AppRoute.ListPage).replace(':number', '1')} replace />} />
 
-        <Route path={AppRoute.CardPage} exact>
-          <CardPage/>
-        </Route>
+      <Route path={AppRoute.ListPage} element={<CatalogPage/>} />
 
-        <Route path={AppRoute.Cart} exact>
-          <CartPage/>
-        </Route>
+      <Route path={AppRoute.CardPage} element={<CardPage/>} />
 
-        <Route>
-          <Error />
-        </Route>
+      <Route path={AppRoute.Cart} element={<CartPage/>} />
 
-      </Switch>
-    </Router>
+      <Route path='*' element={<Error />} />
+
+    </Routes>
   );
 }
-
-export default App;

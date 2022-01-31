@@ -1,18 +1,32 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import { appReducer } from './redusers/app-reducer';
-import { mainReducer } from './redusers/main-reducer';
-import { searchReducer } from './redusers/search-reducer';
+import { combineReducers, createAction, Middleware } from '@reduxjs/toolkit';
+import browserHistory from '../browser-history/browser-history';
+import { AppRoute, Reducer } from '../const';
+import appDataReducer from './redusers/data-reducer';
+import appClientSlice from './redusers/client-reducer';
 
-export enum NameSpace {
-  Main = 'MAIN',
-  App = 'APP',
-  Search = 'SEARCH',
+export enum middleware {
+  RedirectToRoute = 'app/redirectToRoute',
 }
 
-export const rootReducer = combineReducers({
-  [NameSpace.Main]: mainReducer,
-  [NameSpace.App]: appReducer,
-  [NameSpace.Search]: searchReducer,
+export const redirect: Middleware<unknown, State> =
+  (_store) => (next) => (action) => {
+    if (action.type === middleware.RedirectToRoute) {
+      browserHistory.push(action.payload);
+    }
+    return next(action);
+  };
+
+
+export const redirectToRoute = createAction(
+  middleware.RedirectToRoute,
+  (url: AppRoute) => ({ payload: url }));
+
+
+export const RootReducer = combineReducers({
+  [Reducer.Data]: appDataReducer,
+  [Reducer.Client]: appClientSlice,
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof RootReducer>;
+
+export type State = RootState;

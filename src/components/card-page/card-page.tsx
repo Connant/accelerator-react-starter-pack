@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { STAR_ICON, STAR_FULL_ICON } from '../../const';
-import { getGuitarsList } from '../../store/selectors';
+import { getGuitarsShow } from '../../store/selectors';
 import { ratingList } from '../../utils';
 import IconRating from '../card-rating/icon-rating';
 import Footer from '../footer/footer';
@@ -9,8 +9,8 @@ import Header from '../header/header';
 
 
 export default function CardPage(): JSX.Element {
+  const guitarsList = useSelector(getGuitarsShow);
 
-  const guitarsList = useSelector(getGuitarsList);
   const guitar = guitarsList.find((el) => el.id);
 
   const starsCount= Math.trunc(guitar?.rating || 0);
@@ -37,7 +37,8 @@ export default function CardPage(): JSX.Element {
             <li className="breadcrumbs__item"><a href="/" className="link">Товар</a>
             </li>
           </ul>
-          <div className="product-container"><img className="product-container__img" src="img/content/guitar-2.jpg" width="90" height="235" alt="" />
+          <div className="product-container">
+            <img className="product-container__img" src="/img/content/guitar-2.jpg" width="90" height="235" alt="" />
             <div className="product-container__info-wrapper">
               <h2 className="product-container__title title title--big title--uppercase">СURT Z30 Plus</h2>
               <div className="rate product-container__rating" aria-hidden="true"><span className="visually-hidden">Рейтинг:</span>

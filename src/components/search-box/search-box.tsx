@@ -1,108 +1,80 @@
-import { useState, ChangeEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { AppRoute, REQUEST_DELAY } from '../../const';
-import { loadGuitarsSuccess, loadSearchResults } from '../../store/action';
-import { searchGuitarsWithParams } from '../../store/actions-api';
-import { getGuitarsList, getSearchGuitars } from '../../store/selectors';
-import debounce from 'lodash.debounce';
-import ButtonSearch from './button-search/button-search';
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, FormEvent, ChangeEvent } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { REQUEST_DELAY } from '../../const';
+import { fetchGuitarsSearch } from '../../store/actions-api';
+import { clearGuitarssSearch } from '../../store/redusers/data-reducer';
+import { setSearchKey, resetSearchKey } from '../../store/redusers/client-reducer';
+import { getCurrentGuitar, getGuitarsSearch, getSearchKey } from '../../store/selectors';
+import { ThunkActionResult } from '../../types/actions';
+import { useDebounced } from '../../hooks/use-debounced';
 
+export type CallbackType = (thunkAction:ThunkActionResult<Promise<void>>) => void;
 
-export default function SearchBox(): JSX.Element {
-  const guitarsList = useSelector(getGuitarsList);
-  const searchGuitars = useSelector(getSearchGuitars);
-
-  const [search, setSearch] = useState('');
-  const [isFocused, setIsFocused] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
+function FormSearch(): JSX.Element {
+  const guitars = useSelector(getCurrentGuitar);
+  const guitarsSearch = useSelector(getGuitarsSearch);
+  const searchKey = useSelector(getSearchKey);
   const dispatch = useDispatch();
-  const history = useHistory();
-
-  const setDebounceSearch = debounce(() => setSearch(search), REQUEST_DELAY);
-
+  const debouncedSearch = useDebounced(dispatch, REQUEST_DELAY);
 
   useEffect(() => {
-    if (search !== '') {
-      dispatch(searchGuitarsWithParams(search));
+    if (searchKey !== '') {
+      debouncedSearch(fetchGuitarsSearch(searchKey));
     }
-  }, [search, dispatch]);
+  }, [debouncedSearch, dispatch, searchKey]);
 
-  const handleClick = (id: string) => {
-    history.push(AppRoute.CardPage.replace(':id', `${id}`));
-    setSearch('');
+  const handleClick = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (evt.target.value === '') {
+      dispatch(clearGuitarssSearch());
+    } dispatch(setSearchKey(evt.target.value));
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
+  const handleItemClick = () => {
+    dispatch(resetSearchKey());
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-
-    if (!isFocused) {
-      setSearch('');
-      dispatch(loadGuitarsSuccess(guitarsList));
-    }
-  };
-
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const value = evt.target.value;
-    setSearch(value);
-    setDebounceSearch();
-  };
-
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-
-    if (!isHovered) {
-      setSearch('');
-      dispatch(loadSearchResults([]));
+  const handleKeyPress = (evt: { key: string; }) => {
+    if (evt.key === 'Enter') {
+      dispatch(resetSearchKey());
     }
   };
 
   return (
-    <div className="form-search" data-testid="form-search">
-      <form className="form-search__form">
+    <div className='form-search'>
+      <form className='form-search__form' onSubmit={(evt: FormEvent<HTMLFormElement>) => {evt.preventDefault();}}>
 
-        <ButtonSearch />
+        <button className='form-search__submit' type='submit'>
+          <svg className='form-search__icon' width='14' height='15' aria-hidden='true'>
+            <use xlinkHref='#icon-search'></use>
+          </svg>
+          <span className='visually-hidden'>Начать поиск</span>
+        </button>
 
-        <input className="form-search__input"
-          onChange={handleInputChange}
-          value={search}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          id="search" type="text"
-          autoComplete="off" placeholder="что вы ищите?"
+        <input className='form-search__input' id='search' value={searchKey} type='text' autoComplete='off' placeholder='Что вы ищите?'
+          onChange={handleClick}
         />
-        <label className="visually-hidden" htmlFor="search">
+
+        <label className='visually-hidden' htmlFor='search'>
           Поиск
         </label>
-      </form>
 
-      {(searchGuitars.length > 0 && (isFocused || isHovered)) && (
-        <ul
-          className="form-search__select-list"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {searchGuitars.map((guitar) => (
-            <li className="form-search__select-item"
-              tabIndex={0} key={guitar.id}
-              onClick={() => handleClick(guitar.id)}
+      </form>
+      <ul className={`form-search__select-list ${guitarsSearch.length ? '' : 'hidden'}`} style={{zIndex:1}} >
+
+        {guitarsSearch?.map((guitar) => {
+          const { name } = guitar;
+          return(
+            <li className='form-search__select-item' tabIndex={0} key={name}
+              onClick={handleItemClick} onKeyPress={handleKeyPress}
             >
-              {guitar.name}
+              { name };
             </li>
-          ))}
-        </ul>
-      )}
+          );})}
+      </ul>
     </div>
   );
 }
 
-
+export default FormSearch;

@@ -1,33 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-import { createAPI } from './service/api';
+import { api } from './service/api';
 import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from './store/root-reducer';
 import { Provider } from 'react-redux';
-import { Router as BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import browserHistory from './browser-history/browser-history';
-import { fetchGuitarsAction } from './store/actions-api';
+import { RootReducer, redirect } from './store/root-reducer';
 
-const api = createAPI();
 
-const store = configureStore({
-  reducer: rootReducer,
+export const store = configureStore({
+  reducer: RootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware ({
-      thunk: {
-        extraArgument: api,
-      },
-    }),
+    getDefaultMiddleware({ thunk: { extraArgument: api } }).concat(redirect),
 });
 
-store.dispatch(fetchGuitarsAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter history={browserHistory}>
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>

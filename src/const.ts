@@ -1,50 +1,74 @@
+import { StringType } from './types/types';
+
+export const TOTAL_COUNT = 'x-total-count';
 
 export enum APIRoute {
   Guitars = '/guitars',
-  Guitar = 'guitars/:id',
-  Comments = '/guitars/:id/comments',
+  Comments = '/comments',
 }
-
 
 export enum AppRoute {
   Main = '/',
   Cart = '/cart',
   CardPage = 'guitars/:id',
-  Guitars = '/guitars',
+  ListPage = '/catalog/page_:number',
+  Error = 'page404',
 }
+
+export const REQUEST_DELAY = 300;
 
 export const STAR_FULL_ICON = 'icon-full-star';
 export const STAR_ICON = 'icon-star';
 export const RATING_STARTS_WITH = 1;
 export const RATING_STARS_COUNT = 5;
 
-export enum TypeGuitar {
-  Acoustic = 'acoustic',
-  Electric = 'electric',
-  Ukulele = 'ukulele',
+export const FIRST_GUITAR = 0;
+export const ALL_GUITARS = 27;
+export const PAGINATION_DEFAULT_PAGE = 1;
+export const PAGINATION_STEP = 1;
+export const NUMBER_OF_CARDS = 9;
+export const PAGES_SHOWN = 3;
+
+export const nextPage = 'Далее';
+export const backPage = 'Назад';
+
+
+export type FilterState = {
+  guitarTypes: string [],
+  stringCounts: string [],
+  minPrice: string,
+  maxPrice: string,
 }
 
-export enum requestParameters {
-  Sort = '_sort',
-  Order = '_order',
-  Start = '_start',
-  Limit = '_limit',
-  PriceGte = 'price_gte',
-  PriceLte = 'price_lte',
-  NameLike = 'name_like',
-  Embed = '_embed',
-  Type = 'type',
-  StringCount = 'stringCount',
+export type SortState = {
+  sort: string,
+  order: string,
 }
 
-export enum numberOfString {
-  FourStrings = '4-strings',
-  SixStrings = '6-strings',
-  SevenStrings = '7-strings',
-  TwelveStrings = '12-strings',
-}
+export const GuitarSpecifications = new Map<string, string[]>([
+  ['acoustic', ['6', '7', '12']],
+  ['electric', ['4', '6', '7']],
+  ['ukulele', ['4']],
+]);
 
-export const DEFAULT_PAGE = 1;
+export const StringCount = new Map<string, StringType>([
+  ['four', { id: '4-strings', stringCount: '4' }],
+  ['six', { id: '6-strings', stringCount: '6' }],
+  ['seven', { id: '7-strings', stringCount: '7' }],
+  ['twelve', { id: '12-strings', stringCount: '12' }],
+]);
+
+export type GuitarType = {
+  id: string;
+  title: string;
+  type: string
+};
+
+export const GuitarsType = new Map<string, GuitarType>([
+  ['acoustic', {id: 'acoustic', title: 'Акустические гитары', type: 'Аккустическая гитара'}],
+  ['electric', {id: 'electric', title: 'Электрогитары', type: 'Электрогитара'}],
+  ['ukulele', {id: 'ukulele', title: 'Укулеле', type: 'Укулеле'}],
+]);
 
 export enum SortingMethod {
   Price = 'price',
@@ -56,11 +80,12 @@ export enum OrderOption {
   Desc = 'desc',
 }
 
-export enum StatusLoading {
-  Idle = 'idle',
-  Loading = 'loading',
-  Succeeded = 'succeeded',
-  Failed = 'failed',
+export enum Reducer {
+  Data = 'DATA',
+  Client = 'CLIENT',
 }
 
-export const REQUEST_DELAY = 1000;
+export enum Slice {
+  AppData = 'data',
+  AppClient = 'client',
+}

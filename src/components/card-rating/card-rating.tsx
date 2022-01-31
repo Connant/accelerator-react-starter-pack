@@ -1,34 +1,31 @@
-
 import IconRating from './icon-rating';
-import { ratingList } from '../../utils';
-import { GuitarType } from '../../types/guitar';
-import { STAR_FULL_ICON, STAR_ICON } from '../../const';
+import { createRangeList } from '../../utils';
+import { RATING_STARS_COUNT, RATING_STARTS_WITH, STAR_FULL_ICON, STAR_ICON } from '../../const';
 
-type PropsType = {
-  guitar: GuitarType;
+type Props = {
+  comments: number;
+  rating: number;
 };
 
-export default function CardRating(props: PropsType): JSX.Element {
+export default function CardRating({ comments, rating }: Props): JSX.Element {
 
-  const { guitar } = props;
+  const ratingList = createRangeList(RATING_STARTS_WITH, RATING_STARS_COUNT);
 
-  const starsCount= Math.trunc(guitar.rating);
+  const starsCount= Math.trunc(rating);
 
-  const starsList = ratingList.slice(starsCount).map((ratingValue) =>
-    <IconRating key={ratingValue} iconClass={STAR_ICON} />,
+  const stars = ratingList.slice(starsCount).map((i) =>
+    <IconRating key={i} iconClass={STAR_ICON} />,
   );
 
-  const fullStarsList = ratingList.slice(0, starsCount).map((ratingValue) =>
-    <IconRating key={ratingValue} iconClass={STAR_FULL_ICON} />,
+  const fullStars = ratingList.slice(0, starsCount).map((i) =>
+    <IconRating key={i} iconClass={STAR_FULL_ICON} />,
   );
 
   return (
     <div className="rate product-card__rate" aria-hidden="true">
       <span className="visually-hidden">Рейтинг:</span>
-
-      {fullStarsList} {starsList}
-
-      <span className="rate__count">{guitar.rating}</span>
+      {fullStars} {stars}
+      <span className="rate__count">{rating}</span>
       <span className="rate__message" />
     </div>
   );

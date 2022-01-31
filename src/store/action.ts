@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { ActionType } from '../types/actions';
-import { GuitarsList, GuitarType } from '../types/guitar';
+import { GuitarsList, GuitarType } from '../types/types';
 import { OrderOption, SortingMethod } from '../const';
 
 export const setFillingGuitarsList = createAction(
@@ -37,11 +37,10 @@ export const loadGuitarsSuccess = createAction(
 );
 
 export const loadSearchResults = createAction(
-  ActionType.LoadSearchResults, (guitars: GuitarType[]) => ({
+  ActionType.LoadSearchResults, (guitars: GuitarsList) => ({
     payload: {
       guitars,
     },
   }),
 );
-
 

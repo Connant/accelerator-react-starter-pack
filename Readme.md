@@ -2,7 +2,8 @@
 
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
 
-
+1:40 
+частичная реализация пагинации
 ## Структура проекта
 
 ---

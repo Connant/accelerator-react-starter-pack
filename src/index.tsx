@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
@@ -7,7 +6,6 @@ import { api } from './service/api';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import browserHistory from './browser-history/browser-history';
 import { RootReducer, redirect } from './store/root-reducer';
 
 

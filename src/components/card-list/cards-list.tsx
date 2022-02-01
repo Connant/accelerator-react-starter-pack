@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 import { useSelector } from 'react-redux';
 import { NUMBER_OF_CARDS } from '../../const';
 import { getIsLoading } from '../../store/selectors';
 import { CompleteGuitar, GuitarType } from '../../types/types';
-import Card from '../card/card';
+import Card from './card/card';
 
 type Props = {
   guitars: CompleteGuitar[];
@@ -17,12 +16,12 @@ export default function CardsList({guitars}: Props): JSX.Element {
     return <h2>Товаров не найдено</h2>;
   }
 
-  const sfvwv = guitars.slice(0, NUMBER_OF_CARDS).map((guitar: GuitarType) =>
+  const cards = guitars.slice(0, NUMBER_OF_CARDS).map((guitar: GuitarType) =>
     <Card key={guitar.id} guitar={guitar} />);
 
   return (
     <div className='cards catalog__cards'>
-      {sfvwv}
+      {cards}
     </div>
   );
 }

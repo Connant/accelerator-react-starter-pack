@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { CompleteGuitar } from '../../types/types';
-import { replaceImagePath } from '../../utils';
-import CardRating from '../card-rating/card-rating';
+import { AppRoute } from '../../../const';
+import { CompleteGuitar } from '../../../types/types';
+import { replaceImagePath } from '../../../utils';
+import CardRating from '../../card-rating/card-rating';
 
 type Props = {
   guitar: CompleteGuitar;

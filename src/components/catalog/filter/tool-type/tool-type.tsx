@@ -1,27 +1,19 @@
-/* eslint-disable no-console */
-
-import { ChangeEvent, memo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { ChangeEvent } from 'react';
+import { useDispatch } from 'react-redux';
 import { FilterState, GuitarsType, GuitarType } from '../../../../const';
 import { fetchFilteredGuitars } from '../../../../store/actions-api';
-import { getGuitarFilter } from '../../../../store/selectors';
 
 
 type Props = {
-  page: number
+  page: number,
+  filter: FilterState,
 }
 
-function ToolType({ page }: Props): JSX.Element {
-  const filter = useSelector(getGuitarFilter);
+export default function ToolType({page, filter}: Props): JSX.Element {
   const dispatch = useDispatch();
-  const { guitarTypes } = filter;
-
-  // console.log(filter);
 
   const handleTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const evt = event.target.value;
-
-    const currentTypes = guitarTypes.includes(evt) ? guitarTypes.filter((value) => value !== evt) : [...guitarTypes, evt];
+    const currentTypes = filter.guitarTypes.includes(event.target.value) ? filter.guitarTypes.filter((value) => value !== event.target.value) : [...filter.guitarTypes, event.target.value];
     const currentFilter = { ...filter, guitarTypes: currentTypes} as FilterState;
     dispatch(fetchFilteredGuitars(currentFilter, page));
   };
@@ -34,7 +26,7 @@ function ToolType({ page }: Props): JSX.Element {
 
         return (
           <div key={id} className='form-checkbox catalog-filter__block-item'>
-            <input className='visually-hidden' value={id} id={id} checked={guitarTypes.includes(id)}
+            <input className='visually-hidden' value={id} id={id} checked={filter.guitarTypes.includes(id)}
               type='checkbox' name={id} onChange={handleTypeChange}
             />
             <label htmlFor={id}>{title}</label>
@@ -45,7 +37,6 @@ function ToolType({ page }: Props): JSX.Element {
   );
 }
 
-export default memo(ToolType);
 
 // https://habr.com/ru/company/plarium/blog/442116/
 // https://remix.run/blog/react-router-v6

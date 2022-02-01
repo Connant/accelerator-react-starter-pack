@@ -1,29 +1,21 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FilterState } from '../../../../const';
 import { fetchFilteredGuitars } from '../../../../store/actions-api';
-import { getGuitarFilter, getMinPrice, getMaxPrice } from '../../../../store/selectors';
+import { getMinPrice, getMaxPrice } from '../../../../store/selectors';
 
 type Props = {
-  page: number
+  page: number,
+  filter: FilterState,
 }
 
-export default function PriceRange({ page }: Props): JSX.Element {
-  const filter = useSelector(getGuitarFilter);
+export default function PriceRange({page, filter}: Props): JSX.Element {
   const priceMin = useSelector(getMinPrice);
   const priceMax = useSelector(getMaxPrice);
 
   const [minValue, setMinValue] = useState(filter.minPrice);
   const [maxValue, setMaxValue] = useState(filter.maxPrice);
   const dispatch = useDispatch();
-
-  const priceMinString = priceMin.toString();
-  const priceMaxString = priceMax.toString();
-
-
-  useEffect(() => {
-    setMinValue(filter.minPrice);
-    setMaxValue(filter.maxPrice);
-  }, [filter.minPrice, filter.maxPrice]);
 
   const handleMin = (event: ChangeEvent<HTMLInputElement>) => {
     let evt = event.target.value;
@@ -33,10 +25,10 @@ export default function PriceRange({ page }: Props): JSX.Element {
       return;
     }
     if ( + evt <= priceMin) {
-      evt = priceMinString;
+      evt = priceMin.toString();
     }
     if ( + evt >= priceMax) {
-      evt = priceMaxString;
+      evt = priceMax.toString();
     }
     if ( + evt >= + maxValue && maxValue !== '') {
       evt = maxValue;
@@ -48,25 +40,29 @@ export default function PriceRange({ page }: Props): JSX.Element {
 
 
   const handleMax = (event: ChangeEvent<HTMLInputElement>) => {
-    let evt = event.target.value;
     let currentFilter = filter;
-    if (evt === '' && evt !== null) {
-      setMaxValue(evt);
+    if (event.target.value === '' && event.target.value !== null) {
+      setMaxValue(event.target.value);
       return;
     }
-    if ( + evt >= priceMax) {
-      evt = priceMaxString;
+    if ( + event.target.value >= priceMax) {
+      event.target.value = priceMax.toString();
     }
-    if ( + evt <= priceMin) {
-      evt = priceMinString;
+    if ( + event.target.value <= priceMin) {
+      event.target.value = priceMin.toString();
     }
-    if ( + evt <= + minValue && minValue !== '') {
-      evt = minValue;
+    if ( + event.target.value <= + minValue && minValue !== '') {
+      event.target.value = minValue;
     }
-    setMaxValue(evt);
-    currentFilter = {...currentFilter, maxPrice: evt};
+    setMaxValue(event.target.value);
+    currentFilter = {...currentFilter, maxPrice: event.target.value};
     dispatch(fetchFilteredGuitars(currentFilter, page));
   };
+
+  useEffect(() => {
+    setMinValue(filter.minPrice);
+    setMaxValue(filter.maxPrice);
+  }, [filter.minPrice, filter.maxPrice]);
 
   return (
     <fieldset className='catalog-filter__block'>

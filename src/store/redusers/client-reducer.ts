@@ -4,7 +4,7 @@ import { Slice, SortState, FilterState } from '../../const';
 export type AppClient = {
   sort: SortState,
   filter: FilterState,
-  searchKey: string,
+  searchCriteria: string,
 };
 
 const initialState: AppClient = {
@@ -18,7 +18,7 @@ const initialState: AppClient = {
     minPrice: '',
     maxPrice: '',
   },
-  searchKey: '',
+  searchCriteria: '',
 };
 
 const appClientSlice = createSlice({
@@ -31,21 +31,15 @@ const appClientSlice = createSlice({
     setFilter: (state, action: PayloadAction<FilterState>) => {
       state.filter = action.payload;
     },
-    removeFilter: (state) => {
-      state.filter = initialState.filter;
+    searchCriteria: (state, action: PayloadAction<string>) => {
+      state.searchCriteria = action.payload;
     },
-    removeSort: (state) => {
-      state.sort = initialState.sort;
-    },
-    setSearchKey: (state, action: PayloadAction<string>) => {
-      state.searchKey = action.payload;
-    },
-    resetSearchKey: (state) => {
-      state.searchKey = initialState.searchKey;
+    researchCriteria: (state) => {
+      state.searchCriteria = initialState.searchCriteria;
     },
   },
 });
 
-export const { setSort, setFilter, setSearchKey, removeSort, removeFilter, resetSearchKey } = appClientSlice.actions;
+export const { setSort, setFilter, searchCriteria, researchCriteria } = appClientSlice.actions;
 
 export default appClientSlice.reducer;

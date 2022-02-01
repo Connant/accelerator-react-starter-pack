@@ -1,4 +1,3 @@
-import { StringType } from './types/types';
 
 export const TOTAL_COUNT = 'x-total-count';
 
@@ -45,13 +44,13 @@ export type SortState = {
   order: string,
 }
 
-export const GuitarSpecifications = new Map<string, string[]>([
+export const GuitarSpecifications = new Map([
   ['acoustic', ['6', '7', '12']],
   ['electric', ['4', '6', '7']],
   ['ukulele', ['4']],
 ]);
 
-export const StringCount = new Map<string, StringType>([
+export const StringCount = new Map([
   ['four', { id: '4-strings', stringCount: '4' }],
   ['six', { id: '6-strings', stringCount: '6' }],
   ['seven', { id: '7-strings', stringCount: '7' }],
@@ -64,7 +63,7 @@ export type GuitarType = {
   type: string
 };
 
-export const GuitarsType = new Map<string, GuitarType>([
+export const GuitarsType = new Map([
   ['acoustic', {id: 'acoustic', title: 'Акустические гитары', type: 'Аккустическая гитара'}],
   ['electric', {id: 'electric', title: 'Электрогитары', type: 'Электрогитара'}],
   ['ukulele', {id: 'ukulele', title: 'Укулеле', type: 'Укулеле'}],

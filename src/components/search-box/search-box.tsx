@@ -1,45 +1,36 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, FormEvent, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { REQUEST_DELAY } from '../../const';
 import { fetchGuitarsSearch } from '../../store/actions-api';
 import { clearGuitarssSearch } from '../../store/redusers/data-reducer';
-import { setSearchKey, resetSearchKey } from '../../store/redusers/client-reducer';
-import { getCurrentGuitar, getGuitarsSearch, getSearchKey } from '../../store/selectors';
-import { ThunkActionResult } from '../../types/actions';
-import { useDebounced } from '../../hooks/use-debounced';
+import { searchCriteria, researchCriteria } from '../../store/redusers/client-reducer';
+import { getGuitarsSearch, GetSearchCriteria } from '../../store/selectors';
 
-export type CallbackType = (thunkAction:ThunkActionResult<Promise<void>>) => void;
-
-function FormSearch(): JSX.Element {
-  const guitars = useSelector(getCurrentGuitar);
+export default function SearchBox(): JSX.Element {
   const guitarsSearch = useSelector(getGuitarsSearch);
-  const searchKey = useSelector(getSearchKey);
+  const search = useSelector(GetSearchCriteria);
   const dispatch = useDispatch();
-  const debouncedSearch = useDebounced(dispatch, REQUEST_DELAY);
-
-  useEffect(() => {
-    if (searchKey !== '') {
-      debouncedSearch(fetchGuitarsSearch(searchKey));
-    }
-  }, [debouncedSearch, dispatch, searchKey]);
 
   const handleClick = (evt: ChangeEvent<HTMLInputElement>) => {
-    if (evt.target.value === '') {
+    if (evt.target.value === '' && evt.target.value !== undefined) {
       dispatch(clearGuitarssSearch());
-    } dispatch(setSearchKey(evt.target.value));
+    } dispatch(searchCriteria(evt.target.value));
   };
 
   const handleItemClick = () => {
-    dispatch(resetSearchKey());
+    dispatch(researchCriteria());
   };
 
-  const handleKeyPress = (evt: { key: string; }) => {
+  const handleKeyPress = (evt: {key: string}) => {
     if (evt.key === 'Enter') {
-      dispatch(resetSearchKey());
+      dispatch(researchCriteria());
     }
   };
+
+  useEffect(() => {
+    if (search !== '' && search !== undefined) {
+      dispatch(fetchGuitarsSearch(search));
+    }
+  }, [ dispatch, search]);
 
   return (
     <div className='form-search'>
@@ -52,7 +43,7 @@ function FormSearch(): JSX.Element {
           <span className='visually-hidden'>Начать поиск</span>
         </button>
 
-        <input className='form-search__input' id='search' value={searchKey} type='text' autoComplete='off' placeholder='Что вы ищите?'
+        <input className='form-search__input' id='search' value={search} type='text' autoComplete='off' placeholder='Что вы ищите?'
           onChange={handleClick}
         />
 
@@ -64,12 +55,12 @@ function FormSearch(): JSX.Element {
       <ul className={`form-search__select-list ${guitarsSearch.length ? '' : 'hidden'}`} style={{zIndex:1}} >
 
         {guitarsSearch?.map((guitar) => {
-          const { name } = guitar;
+          const {name} = guitar;
           return(
             <li className='form-search__select-item' tabIndex={0} key={name}
               onClick={handleItemClick} onKeyPress={handleKeyPress}
             >
-              { name };
+              {name};
             </li>
           );})}
       </ul>
@@ -77,4 +68,3 @@ function FormSearch(): JSX.Element {
   );
 }
 
-export default FormSearch;

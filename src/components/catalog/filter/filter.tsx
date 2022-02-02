@@ -8,7 +8,7 @@ type Props = {
   filter: FilterState,
 }
 
-export default function CatalogFilter({page, filter}: Props): JSX.Element {
+export default function Filter({page, filter}: Props): JSX.Element {
   return (
     <form className='catalog-filter' >
       <h2 className='title title--bigger catalog-filter__title'>Фильтр</h2>

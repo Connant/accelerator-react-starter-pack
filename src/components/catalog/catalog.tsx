@@ -65,7 +65,6 @@ export default function Catalog({guitars, filter, page}: Props): JSX.Element {
       });
     }
     dispatch(fetchGuitarsPrice());
-    // console.log(page);
     dispatch(fetchFilteredGuitars(currentFilter, page, true));
   }, []);
 

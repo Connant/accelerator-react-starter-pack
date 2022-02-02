@@ -14,8 +14,6 @@ export enum AppRoute {
   Error = 'page404',
 }
 
-export const REQUEST_DELAY = 300;
-
 export const STAR_FULL_ICON = 'icon-full-star';
 export const STAR_ICON = 'icon-star';
 export const RATING_STARTS_WITH = 1;
@@ -24,9 +22,7 @@ export const RATING_STARS_COUNT = 5;
 export const FIRST_GUITAR = 0;
 export const ALL_GUITARS = 27;
 export const PAGINATION_DEFAULT_PAGE = 1;
-export const PAGINATION_STEP = 1;
 export const NUMBER_OF_CARDS = 9;
-export const PAGES_SHOWN = 3;
 
 export const nextPage = 'Далее';
 export const backPage = 'Назад';

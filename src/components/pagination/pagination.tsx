@@ -16,8 +16,6 @@ export default function Pagination({page}: Props): JSX.Element {
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
-  // console.log(page);
-
   const pageCount = Math.ceil(ALL_GUITARS / NUMBER_OF_CARDS);
 
 
@@ -54,7 +52,6 @@ export default function Pagination({page}: Props): JSX.Element {
           const activePage = cn('pagination__page', {
             'pagination__page--active': Number(page) === el,
           });
-          // console.log(el);
 
           return (
             <li key={el} className={activePage}>

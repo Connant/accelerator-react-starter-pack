@@ -19,7 +19,7 @@ export const fetchGuitarsSearch = (searchCriteria: string): ThunkActionResult =>
     }
 
     catch {
-      toast.error('Что-то пошло не так...', {
+      toast.error('Что-то пошло не так, попробуйте позже', {
         position: toast.POSITION.TOP_CENTER,
       });
       toast.clearWaitingQueue();
@@ -36,7 +36,9 @@ export const fetchFilteredGuitars = (filter: FilterState, page: number, searchRe
     dispatch(clearGuitarssCount());
 
     try {
-      const { data, headers } = await api.get<GuitarType[]>(`${APIRoute.Guitars}${query}`);
+      const { data, headers } = await api.get<CompleteGuitar[]>(`${APIRoute.Guitars}${query}`);
+      // eslint-disable-next-line no-console
+      console.log(data);
       const productsTotalCount = headers[TOTAL_COUNT];
       if ((data.length === 0)&&(searchRequest)) {
         throw new Error('Произошла ошибка, попробуйте позже');
@@ -47,16 +49,18 @@ export const fetchFilteredGuitars = (filter: FilterState, page: number, searchRe
     }
 
     catch {
-      toast.error('Что-то пошло не так...', {
+      toast.error('Что-то пошло не так, попробуйте позже', {
         position: toast.POSITION.TOP_CENTER,
       });
+      toast.clearWaitingQueue();
     }
+
     dispatch(toggleIsLoading(false));
   };
 
 export const fetchSortedGuitars = (page: number, sort: SortState): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
-
+    dispatch(toggleIsLoading(true));
     const filter = getState().CLIENT.filter;
     const query = allRequest(page, filter, sort);
 
@@ -67,12 +71,14 @@ export const fetchSortedGuitars = (page: number, sort: SortState): ThunkActionRe
     }
 
     catch {
-      toast.error('Что-то пошло не так...', {
+      toast.error('Что-то пошло не так, попробуйте позже', {
         position: toast.POSITION.TOP_CENTER,
       });
+      toast.clearWaitingQueue();
     }
     dispatch(toggleIsLoading(false));
   };
+
 
 export const fetchMaxGuitarsPrice = (productsCount: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -83,9 +89,10 @@ export const fetchMaxGuitarsPrice = (productsCount: number): ThunkActionResult =
     }
 
     catch {
-      toast.error('Что-то пошло не так...', {
+      toast.error('Что-то пошло не так, попробуйте позже', {
         position: toast.POSITION.TOP_CENTER,
       });
+      toast.clearWaitingQueue();
     }
   };
 
@@ -101,9 +108,10 @@ export const fetchGuitarsPrice = (): ThunkActionResult =>
       dispatch(addPriceStart(data[FIRST_GUITAR].price));
       dispatch(fetchMaxGuitarsPrice(headers[TOTAL_COUNT]));
     } catch {
-      toast.error('Что-то пошло не так...', {
+      toast.error('Что-то пошло не так, попробуйте позже', {
         position: toast.POSITION.TOP_CENTER,
       });
+      toast.clearWaitingQueue();
     }
     dispatch(toggleIsLoading(false));
   };

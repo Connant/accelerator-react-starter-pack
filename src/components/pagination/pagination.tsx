@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import { fetchFilteredGuitars } from '../../store/actions-api';
-import { getGuitarFilter } from '../../store/selectors';
-import { AppRoute, nextPage, backPage, NUMBER_OF_CARDS, PAGINATION_DEFAULT_PAGE, ALL_GUITARS } from '../../const';
+import { getGuitarFilter, getGuitarCount } from '../../store/selectors';
+import { AppRoute, nextPage, backPage, NUMBER_OF_CARDS, PAGINATION_DEFAULT_PAGE } from '../../const';
 
 type Props = {
   page: number,
@@ -16,8 +16,13 @@ export default function Pagination({page}: Props): JSX.Element {
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
-  const pageCount = Math.ceil(ALL_GUITARS / NUMBER_OF_CARDS);
+  const guitarCount = useSelector(getGuitarCount);
 
+  if (guitarCount === null) {
+    return null;
+  }
+
+  const pageCount = Math.ceil(guitarCount / NUMBER_OF_CARDS);
 
   const handleClick = (evt: MouseEvent<HTMLAnchorElement>, numberPage?: number) => {
     evt.preventDefault();
@@ -52,6 +57,10 @@ export default function Pagination({page}: Props): JSX.Element {
           const activePage = cn('pagination__page', {
             'pagination__page--active': Number(page) === el,
           });
+
+          if (guitarCount <= el) {
+            return null;
+          }
 
           return (
             <li key={el} className={activePage}>

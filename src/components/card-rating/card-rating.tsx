@@ -3,11 +3,10 @@ import { createRangeList } from '../../utils';
 import { RATING_STARS_COUNT, RATING_STARTS_WITH, STAR_FULL_ICON, STAR_ICON } from '../../const';
 
 type Props = {
-  comments: number;
   rating: number;
 };
 
-export default function CardRating({ comments, rating }: Props): JSX.Element {
+export default function CardRating({ rating }: Props): JSX.Element {
 
   const ratingList = createRangeList(RATING_STARTS_WITH, RATING_STARS_COUNT);
 

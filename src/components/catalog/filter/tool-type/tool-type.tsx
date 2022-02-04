@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { FilterState, GuitarsType, GuitarType } from '../../../../const';
+import useDisabled from '../../../../hooks/use-disabled';
 import { fetchFilteredGuitars } from '../../../../store/actions-api';
 
 
@@ -11,10 +12,12 @@ type Props = {
 
 export default function ToolType({page, filter}: Props): JSX.Element {
   const dispatch = useDispatch();
+  const setDisabled = useDisabled(filter);
 
   const handleTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const currentTypes = filter.guitarTypes.includes(event.target.value) ? filter.guitarTypes.filter((value) => value !== event.target.value) : [...filter.guitarTypes, event.target.value];
-    const currentFilter = { ...filter, guitarTypes: currentTypes} as FilterState;
+    const qwerty = setDisabled(currentTypes);
+    const currentFilter = { ...filter, guitarTypes: currentTypes, stringCounts: qwerty} as FilterState;
     dispatch(fetchFilteredGuitars(currentFilter, page));
   };
 

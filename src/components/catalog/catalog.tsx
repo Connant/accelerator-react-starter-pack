@@ -6,7 +6,6 @@ import { FilterState } from '../../const';
 import { CompleteGuitar } from '../../types/types';
 import { fetchFilteredGuitars, fetchGuitarsPrice } from '../../store/actions-api';
 
-import { toast } from 'react-toastify';
 import queryString from 'query-string';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -35,34 +34,18 @@ export default function Catalog({guitars, filter, page}: Props): JSX.Element {
 
     if (priceMin !== '') {
       currentFilter = { ...currentFilter, minPrice: priceMin };
-    } else {
-      toast.error('Что-то пошло не так...', {
-        position: toast.POSITION.TOP_CENTER,
-      });
     }
 
     if (priceMax !== '') {
       currentFilter = { ...currentFilter, maxPrice: priceMax };
-    } else {
-      toast.error('Что-то пошло не так...', {
-        position: toast.POSITION.TOP_CENTER,
-      });
     }
 
     if (type.length !== 0) {
       currentFilter = { ...currentFilter, guitarTypes: type };
-    } else {
-      toast.error('Что-то пошло не так...', {
-        position: toast.POSITION.TOP_CENTER,
-      });
     }
 
     if (stringCount.length !== 0) {
       currentFilter = { ...currentFilter, stringCounts: stringCount };
-    } else {
-      toast.error('Что-то пошло не так...', {
-        position: toast.POSITION.TOP_CENTER,
-      });
     }
     dispatch(fetchGuitarsPrice());
     dispatch(fetchFilteredGuitars(currentFilter, page, true));

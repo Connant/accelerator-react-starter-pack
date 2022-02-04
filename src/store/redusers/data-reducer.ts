@@ -8,7 +8,7 @@ const initialState: AppData = {
   guitarsShow: [],
   priceEnd: 0,
   priceStart: 0,
-  productsCount: null,
+  guitarCount: null,
   isLoading: true,
   currentGuitars: {} as GuitarType,
   currentComments: [],
@@ -34,10 +34,10 @@ const appDataSlice = createSlice({
       state.priceEnd = action.payload;
     },
     addGuitarssCount: (state, action: PayloadAction<number>) => {
-      state.productsCount = action.payload;
+      state.guitarCount = action.payload;
     },
     clearGuitarssCount: (state) => {
-      state.productsCount = initialState.productsCount;
+      state.guitarCount = initialState.guitarCount;
     },
     toggleIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;

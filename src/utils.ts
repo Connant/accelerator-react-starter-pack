@@ -33,7 +33,7 @@ export const allRequest = ( page: number | undefined, filter: FilterState, sorti
   const sortQuery = queryString.stringify(
     { _sort: sorting.sort,
       _order: sorting.order,
-    }, {},
+    }, {skipEmptyString: true, skipNull: true},
   );
 
   const request = [pageRequest, filterdQuery, sortQuery].filter((query) =>

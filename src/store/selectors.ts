@@ -10,4 +10,6 @@ export const getCurrentGuitar = (state: State) => state[Reducer.Data].currentGui
 export const getSort = (state: State) => state[Reducer.Client].sort;
 export const getGuitarFilter = (state: State) => state[Reducer.Client].filter;
 export const GetSearchCriteria = (state: State) => state[Reducer.Client].searchCriteria;
+export const getGuitarCount = (state: State) => state[Reducer.Data].guitarCount;
+export const getComments = (state: State) => state[Reducer.Data].currentComments;
 

@@ -1,6 +1,6 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { FilterState, StringCount } from '../../../../const';
+import { FilterState, GuitarSpecifications, StringCount } from '../../../../const';
 import { fetchFilteredGuitars } from '../../../../store/actions-api';
 import { StringType } from '../../../../types/types';
 
@@ -11,9 +11,25 @@ type Props = {
 
 export default function NumberOfStrings({page, filter}: Props): JSX.Element {
   const dispatch = useDispatch();
+  const { guitarTypes, stringCounts } = filter;
+
+  const checkIsDisable = useCallback(
+    (stringCount: string) => {
+      if (guitarTypes.length === 0) {
+        return false;
+      }
+      const isDisable = !guitarTypes
+        .reduce((acc: string[], item: string) => {
+          const counts = GuitarSpecifications.get(item) || [];
+          return [...acc, ...counts];
+        }, [])
+        .includes(stringCount);
+
+      return isDisable;
+    }, [guitarTypes]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const counts = filter.stringCounts.includes(event.target.value) ? filter.stringCounts.filter((value) => value !== event.target.value) : [...filter.stringCounts, event.target.value];
+    const counts = stringCounts.includes(event.target.value) ? stringCounts.filter((value) => value !== event.target.value) : [...stringCounts, event.target.value];
     const currentFilter = { ...filter, stringCounts: counts };
     dispatch(fetchFilteredGuitars(currentFilter, page));
   };
@@ -29,8 +45,9 @@ export default function NumberOfStrings({page, filter}: Props): JSX.Element {
           <div key={id} className='form-checkbox catalog-filter__block-item'>
             <input className='visually-hidden' type='checkbox' id={id} name={id}
               onChange={handleChange}
-              checked={filter.stringCounts.includes(stringCount)}
+              checked={stringCounts.includes(stringCount)&&!checkIsDisable(stringCount)}
               value={stringCount}
+              disabled={checkIsDisable(stringCount)}
             />
             <label htmlFor={id}>{stringCount}</label>
           </div>

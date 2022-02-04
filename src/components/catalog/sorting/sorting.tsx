@@ -7,7 +7,7 @@ type Props = {
   page: number
 }
 
-export default function Sort({ page }: Props):JSX.Element {
+export default function Sort({page}: Props):JSX.Element {
   const sorting = useSelector(getSort);
   const dispatch = useDispatch();
   const { sort, order } = sorting;
@@ -19,12 +19,13 @@ export default function Sort({ page }: Props):JSX.Element {
 
   const handleOrder = (key: OrderOption) => {
     let currentSort = sorting;
-    if (!sort) {
+    if (sort === '') {
       currentSort = {...currentSort, sort: SortingMethod.Price};
     }
     currentSort = {...currentSort, order: key};
     dispatch(fetchSortedGuitars(page, currentSort));
   };
+
 
   return (
     <div className='catalog-sort'>
@@ -49,17 +50,17 @@ export default function Sort({ page }: Props):JSX.Element {
       <div className='catalog-sort__order'>
         <button
           className={`catalog-sort__order-button catalog-sort__order-button--up
-          ${(order === OrderOption.Desc) ? 'catalog-sort__order-button--active' : ''}`}
+          ${(order === OrderOption.Asc) ? 'catalog-sort__order-button--active' : ''}`}
           aria-label='По возрастанию'
           tabIndex={-1}
-          onClick={()=>handleOrder(OrderOption.Desc)}
+          onClick={()=>handleOrder(OrderOption.Asc)}
         >
         </button>
         <button
           className={`catalog-sort__order-button catalog-sort__order-button--down
-          ${(order === OrderOption.Asc) ? 'catalog-sort__order-button--active' : ''}`}
+          ${(order === OrderOption.Desc) ? 'catalog-sort__order-button--active' : ''}`}
           aria-label='По убыванию'
-          onClick={()=>handleOrder(OrderOption.Asc)}
+          onClick={()=>handleOrder(OrderOption.Desc)}
         >
         </button>
       </div>

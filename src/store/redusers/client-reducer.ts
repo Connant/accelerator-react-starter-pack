@@ -28,6 +28,9 @@ const appClientSlice = createSlice({
     setSort: (state, action: PayloadAction<SortState>) => {
       state.sort = action.payload;
     },
+    resetSort: (state) => {
+      state.sort = initialState.sort;
+    },
     setFilter: (state, action: PayloadAction<FilterState>) => {
       state.filter = action.payload;
     },

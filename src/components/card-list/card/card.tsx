@@ -8,7 +8,10 @@ type Props = {
   guitar: CompleteGuitar;
 };
 
-export default function Card({ guitar }: Props): JSX.Element {
+export default function Card({guitar}: Props): JSX.Element {
+
+  // eslint-disable-next-line no-console
+  // console.log(guitar.comments);
 
   return (
     <div className='product-card'>
@@ -18,7 +21,7 @@ export default function Card({ guitar }: Props): JSX.Element {
       <div className='product-card__info'>
 
         <div className='rate product-card__rate' aria-hidden='true'>
-          <CardRating comments={guitar.comments?.length} rating={guitar.rating}/>
+          <CardRating rating={guitar.rating}/>
         </div>
 
         <p className='product-card__title'>{guitar.name}</p>

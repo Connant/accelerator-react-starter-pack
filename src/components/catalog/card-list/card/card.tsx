@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../const';
-import { CompleteGuitar } from '../../../types/types';
-import { replaceImagePath } from '../../../utils';
-import CardRating from '../../card-rating/card-rating';
+import { generatePath, Link } from 'react-router-dom';
+import { AppRoute } from '../../../../const';
+import { CompleteGuitar } from '../../../../types/types';
+import { replaceImagePath } from '../../../../utils';
+import CardRating from '../../../card-rating/card-rating';
 
 type Props = {
   guitar: CompleteGuitar;
@@ -10,8 +10,9 @@ type Props = {
 
 export default function Card({guitar}: Props): JSX.Element {
 
-  // eslint-disable-next-line no-console
-  // console.log(guitar.comments);
+  const path = generatePath((AppRoute.CardPage).replace(':id', guitar.id.toString()));
+
+  // (`${(AppRoute.ListPage).replace(':number', numberPagePath)}?${queryParams}`);
 
   return (
     <div className='product-card'>
@@ -33,7 +34,7 @@ export default function Card({guitar}: Props): JSX.Element {
       </div>
 
       <div className='product-card__buttons'>
-        <Link className='button button--mini' to={AppRoute.CardPage}>
+        <Link className='button button--mini' to={`/${path}`}>
           Подробнее
         </Link>
         <a href='/' className='button button--red button--mini button--add-to-cart'>

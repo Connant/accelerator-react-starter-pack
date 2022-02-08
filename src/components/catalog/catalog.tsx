@@ -12,8 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import BreadCrumbs from './bread-crumbs/bread-crumbs';
 import Sorting from './sorting/sorting';
 import Filter from './filter/filter';
-import CardsList from '../card-list/cards-list';
-import Pagination from '../pagination/pagination';
+import CardsList from './card-list/cards-list';
+import Pagination from './pagination/pagination';
 
 type Props = {
   guitars: CompleteGuitar[],

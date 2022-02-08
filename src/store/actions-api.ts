@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FilterState, FIRST_GUITAR, PAGINATION_DEFAULT_PAGE, SortState, TOTAL_COUNT, APIRoute } from '../const';
+import { FilterState, FIRST_GUITAR, PAGINATION_DEFAULT_PAGE, SortState, TOTAL_COUNT, APIRoute, AppRoute } from '../const';
 import { ThunkActionResult } from '../types/actions';
 import { CompleteGuitar, GuitarType, GuitarsList } from '../types/types';
 import { allRequest } from '../utils';
-import { addGuitarssSearch, toggleIsLoading, clearGuitarssCount, addGuitarssCount, addGuitarssShow, addPriceStart, addPriceEnd } from './redusers/data-reducer';
+import { addGuitarssSearch, toggleIsLoading, clearGuitarssCount, addGuitarssCount, addGuitarssShow, addPriceStart, addPriceEnd, addCurrentGuitar } from './redusers/data-reducer';
 import { setFilter, setSort } from './redusers/client-reducer';
 
 export const fetchGuitarsSearch = (searchCriteria: string): ThunkActionResult =>
@@ -116,3 +116,19 @@ export const fetchGuitarsPrice = (): ThunkActionResult =>
     dispatch(toggleIsLoading(false));
   };
 
+
+// CARD PADE
+
+export const fetchCurrentGuitar = (id: string): ThunkActionResult =>
+  async (dispatch, getState, api): Promise<void> => {
+    try {
+      const { data } = await api.get<CompleteGuitar>(`${(AppRoute.CardPage).replace(':id', id)}`);
+      const {comments, ...rest} = data;
+      dispatch(addCurrentGuitar(rest));
+    } catch {
+      toast.error('Что-то пошло не так, попробуйте позже', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      toast.clearWaitingQueue();
+    }
+  };

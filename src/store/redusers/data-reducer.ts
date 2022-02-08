@@ -42,9 +42,15 @@ const appDataSlice = createSlice({
     toggleIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    addCurrentGuitar: (state, action: PayloadAction<GuitarType>) => {
+      state.currentGuitars = action.payload;
+    },
+    clearCurrentGuitar: (state) => {
+      state.currentGuitars = initialState.currentGuitars;
+    },
   },
 });
 
-export const { addGuitarssSearch, clearGuitarssSearch, addGuitarssShow, addPriceEnd, addPriceStart, addGuitarssCount, toggleIsLoading, clearGuitarssCount } = appDataSlice.actions;
+export const { addGuitarssSearch, clearGuitarssSearch, addGuitarssShow, addPriceEnd, addPriceStart, addGuitarssCount, toggleIsLoading, clearGuitarssCount, addCurrentGuitar, clearCurrentGuitar } = appDataSlice.actions;
 
 export default appDataSlice.reducer;

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { NUMBER_OF_CARDS } from '../../const';
-import { getIsLoading } from '../../store/selectors';
-import { CompleteGuitar } from '../../types/types';
+import { NUMBER_OF_CARDS } from '../../../const';
+import { getIsLoading } from '../../../store/selectors';
+import { CompleteGuitar } from '../../../types/types';
 import Card from './card/card';
 
 type Props = {

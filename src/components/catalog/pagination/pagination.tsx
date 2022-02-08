@@ -3,9 +3,9 @@ import { MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
-import { fetchFilteredGuitars } from '../../store/actions-api';
-import { getGuitarFilter, getGuitarCount } from '../../store/selectors';
-import { AppRoute, nextPage, backPage, NUMBER_OF_CARDS, PAGINATION_DEFAULT_PAGE } from '../../const';
+import { fetchFilteredGuitars } from '../../../store/actions-api';
+import { getGuitarFilter, getGuitarCount } from '../../../store/selectors';
+import { AppRoute, nextPage, backPage, NUMBER_OF_CARDS, PAGINATION_DEFAULT_PAGE } from '../../../const';
 
 type Props = {
   page: number,

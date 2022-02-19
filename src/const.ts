@@ -23,6 +23,9 @@ export const FIRST_GUITAR = 0;
 export const ALL_GUITARS = 27;
 export const PAGINATION_DEFAULT_PAGE = 1;
 export const NUMBER_OF_CARDS = 9;
+export const STAR_NUMBERS = [1, 2, 3, 4, 5];
+
+export const DEFAULT_COMMENTS_COUNT = 3;
 
 export const nextPage = 'Далее';
 export const backPage = 'Назад';
@@ -83,4 +86,19 @@ export enum Reducer {
 export enum Slice {
   AppData = 'data',
   AppClient = 'client',
+}
+
+
+export  const StarTitle: {[key:number]:string} = {
+  1: 'Ужасно',
+  2: 'Плохо',
+  3: 'Нормально',
+  4: 'Хорошо',
+  5: 'Отлично',
+};
+
+export enum ToolType {
+  Acoustic = 'acoustic',
+  Electric = 'electric',
+  Ukulele = 'ukulele',
 }

@@ -12,8 +12,6 @@ export default function Card({guitar}: Props): JSX.Element {
 
   const path = generatePath((AppRoute.CardPage).replace(':id', guitar.id.toString()));
 
-  // (`${(AppRoute.ListPage).replace(':number', numberPagePath)}?${queryParams}`);
-
   return (
     <div className='product-card'>
 

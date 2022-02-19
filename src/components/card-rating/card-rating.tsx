@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import IconRating from './icon-rating';
 import { createRangeList } from '../../utils';
 import { RATING_STARS_COUNT, RATING_STARTS_WITH, STAR_FULL_ICON, STAR_ICON } from '../../const';

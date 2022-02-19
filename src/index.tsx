@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-import { createAPI } from './service/api';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { RootReducer, redirect } from './store/root-reducer';
 import { ToastContainer } from 'react-toastify';
-
-const api = createAPI();
+import ReviewForm from './components/card-page/review/modals/review-form/review-form';
+import ModalOk from './components/card-page/review/modals/modal-ok/mpdal-ok';
+import { api } from './service/api';
 
 export const store = configureStore({
   reducer: RootReducer,
@@ -23,6 +23,8 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
+        <ReviewForm />
+        <ModalOk />
         <ToastContainer limit={1} />
       </BrowserRouter>
     </Provider>

@@ -12,9 +12,6 @@ export default function CardsList({guitars}: Props): JSX.Element {
 
   const isLoading = useSelector(getIsLoading);
 
-  // eslint-disable-next-line no-console
-  // console.log(guitars);
-
   if ((guitars.length === 0)&&(!isLoading)) {
     return <h2>Товаров не найдено</h2>;
   }

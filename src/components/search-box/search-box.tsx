@@ -1,8 +1,8 @@
 import { useEffect, FormEvent, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGuitarsSearch } from '../../store/actions-api';
-import { clearGuitarssSearch } from '../../store/redusers/data-reducer';
-import { searchCriteria, researchCriteria } from '../../store/redusers/client-reducer';
+import { clearGuitarssSearch } from '../../store/redusers/data-reducer/data-reducer';
+import { searchCriteria, researchCriteria } from '../../store/redusers/client-reduser/client-reducer';
 import { getGuitarsSearch, GetSearchCriteria } from '../../store/selectors';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
@@ -51,7 +51,7 @@ export default function SearchBox(): JSX.Element {
         </label>
 
       </form>
-      <ul className={`form-search__select-list ${guitarsSearch.length ? '' : 'hidden'}`} style={{zIndex:1}} >
+      <ul className={`form-search__select-list ${guitarsSearch?.length ? '' : 'hidden'}`} style={{zIndex:1}} >
 
         {guitarsSearch?.map((guitar) => {
           const {name, id} = guitar;

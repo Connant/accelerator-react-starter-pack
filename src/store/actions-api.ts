@@ -2,10 +2,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FilterState, FIRST_GUITAR, PAGINATION_DEFAULT_PAGE, SortState, TOTAL_COUNT, APIRoute, AppRoute } from '../const';
 import { ThunkActionResult } from '../types/actions';
-import { CompleteGuitar, GuitarType, GuitarsList } from '../types/types';
+import { CompleteGuitar, GuitarType, GuitarsList, CommentPost, Comment } from '../types/types';
 import { allRequest } from '../utils';
-import { addGuitarssSearch, toggleIsLoading, clearGuitarssCount, addGuitarssCount, addGuitarssShow, addPriceStart, addPriceEnd, addCurrentGuitar } from './redusers/data-reducer';
-import { setFilter, setSort } from './redusers/client-reducer';
+import { addGuitarssSearch, toggleIsLoading, clearGuitarssCount, addGuitarssCount, addGuitarssShow, addPriceStart, addPriceEnd, addCurrentGuitar, addNewComment, toggleIsReviewOpen, toggleIsSuccessOpen, addCurrentComments } from './redusers/data-reducer/data-reducer';
+import { setFilter, setSort } from './redusers/client-reduser/client-reducer';
 
 export const fetchGuitarsSearch = (searchCriteria: string): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
@@ -37,8 +37,6 @@ export const fetchFilteredGuitars = (filter: FilterState, page: number, searchRe
 
     try {
       const { data, headers } = await api.get<CompleteGuitar[]>(`${APIRoute.Guitars}${query}`);
-      // eslint-disable-next-line no-console
-      console.log(data);
       const productsTotalCount = headers[TOTAL_COUNT];
       if ((data.length === 0)&&(searchRequest)) {
         throw new Error('Произошла ошибка, попробуйте позже');
@@ -122,9 +120,26 @@ export const fetchGuitarsPrice = (): ThunkActionResult =>
 export const fetchCurrentGuitar = (id: string): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     try {
-      const { data } = await api.get<CompleteGuitar>(`${(AppRoute.CardPage).replace(':id', id)}`);
+      const { data } = await api.get<CompleteGuitar>(`${(AppRoute.CardPage).replace(':id', id)}?_embed=comments`);
       const {comments, ...rest} = data;
       dispatch(addCurrentGuitar(rest));
+      dispatch(addCurrentComments(comments));
+    } catch {
+      toast.error('Что-то пошло не так, попробуйте позже', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      toast.clearWaitingQueue();
+    }
+  };
+
+
+export const postComment = (comment: CommentPost): ThunkActionResult =>
+  async (dispatch, getState, api): Promise<void> => {
+    try {
+      const { data } = await api.post<Comment>(`${APIRoute.Comments}`, comment);
+      dispatch(addNewComment(data));
+      dispatch(toggleIsReviewOpen(false));
+      dispatch(toggleIsSuccessOpen(true));
     } catch {
       toast.error('Что-то пошло не так, попробуйте позже', {
         position: toast.POSITION.TOP_CENTER,

@@ -48,6 +48,7 @@ export default function NumberOfStrings({page, filter}: Props): JSX.Element {
               checked={stringCounts.includes(stringCount)&&!checkIsDisable(stringCount)}
               value={stringCount}
               disabled={checkIsDisable(stringCount)}
+              data-testid = {id}
             />
             <label htmlFor={id}>{stringCount}</label>
           </div>

@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { GuitarsType, STAR_FULL_ICON } from '../../../const';
+import { GuitarsType } from '../../../const';
 import { fetchCurrentGuitar } from '../../../store/actions-api';
-import { clearCurrentGuitar } from '../../../store/redusers/data-reducer';
+import { clearCurrentGuitar } from '../../../store/redusers/data-reducer/data-reducer';
 import { GuitarType } from '../../../types/types';
-import IconRating from '../../card-rating/icon-rating';
+import CardRating from '../../card-rating/card-rating';
 
 type Props = {
   guitar: GuitarType;
@@ -64,7 +64,7 @@ export default function CardInfo({guitar}: Props): JSX.Element {
         <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>
         <div className="rate product-container__rating" aria-hidden="true"><span className="visually-hidden">Рейтинг:</span>
 
-          <IconRating iconClass={STAR_FULL_ICON} />
+          <CardRating rating={guitar.rating} />
 
           <span className="rate__count"></span><span className="rate__message"></span>
         </div>

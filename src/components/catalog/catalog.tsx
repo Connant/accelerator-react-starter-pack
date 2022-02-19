@@ -9,7 +9,6 @@ import { fetchFilteredGuitars, fetchGuitarsPrice } from '../../store/actions-api
 import queryString from 'query-string';
 import 'react-toastify/dist/ReactToastify.css';
 
-import BreadCrumbs from './bread-crumbs/bread-crumbs';
 import Sorting from './sorting/sorting';
 import Filter from './filter/filter';
 import CardsList from './card-list/cards-list';
@@ -65,7 +64,12 @@ export default function Catalog({guitars, filter, page}: Props): JSX.Element {
     <main className="page-content">
       <div className="container">
         <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
-        <BreadCrumbs />
+        <ul className="breadcrumbs page-content__breadcrumbs">
+          <li className="breadcrumbs__item"><a className="link" href="/">Главная</a>
+          </li>
+          <li className="breadcrumbs__item"><a className="link" href="/">Каталог</a>
+          </li>
+        </ul>
         <div className="catalog">
           <Filter page={page} filter={filter} />
           <Sorting page={page} />

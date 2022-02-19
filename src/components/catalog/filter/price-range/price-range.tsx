@@ -72,12 +72,14 @@ export default function PriceRange({page, filter}: Props): JSX.Element {
           <label className='visually-hidden'>Минимальная цена</label>
           <input type='number' placeholder='1700' onBlur={handleMin} value={minValue}
             onChange={(event) => setMinValue(event.target.value)} id='minPrice' name='от'
+            data-testid='priceMin'
           />
         </div>
         <div className='form-input'>
           <label className='visually-hidden'>Максимальная цена</label>
           <input type='number' placeholder='35000' id='maxPrice' name='до'
             value={maxValue} onBlur={handleMax} onChange={(event) => setMaxValue(event.target.value)}
+            data-testid='priceMax'
           />
         </div>
       </div>

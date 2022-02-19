@@ -30,7 +30,7 @@ export default function ToolType({page, filter}: Props): JSX.Element {
         return (
           <div key={id} className='form-checkbox catalog-filter__block-item'>
             <input className='visually-hidden' value={id} id={id} checked={filter.guitarTypes.includes(id)}
-              type='checkbox' name={id} onChange={handleTypeChange}
+              type='checkbox' name={id} onChange={handleTypeChange}  data-testid={id}
             />
             <label htmlFor={id}>{title}</label>
           </div>

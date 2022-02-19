@@ -1,5 +1,6 @@
 import { RATING_STARTS_WITH, RATING_STARS_COUNT, FilterState, SortState, NUMBER_OF_CARDS } from './const';
 import queryString from 'query-string';
+import { Comment } from './types/types';
 
 export function replaceImagePath(receivedPath:string, replace = 'img', clientPath = '/img/content') {
   return receivedPath.replace(replace, clientPath);
@@ -41,3 +42,9 @@ export const allRequest = ( page: number | undefined, filter: FilterState, sorti
 
   return `/?${request}`;
 };
+
+export const getCommentsSortByDate = (comments: Comment[]): Comment[] =>
+  [...comments].sort((objA, objB) => Date.parse(objB.createAt) - Date.parse(objA.createAt));
+
+export const isEscEvent = (evt: KeyboardEvent): boolean => evt.key === 'Escape' || evt.key === 'Esc';
+

@@ -1,5 +1,5 @@
 
-import { GuitarType, GuitarsList, CompleteGuitar, Comments } from './types';
+import { GuitarType, GuitarsList, CompleteGuitar, Comment } from './types';
 // import { Comment } from './types';
 
 export type AppData = {
@@ -10,5 +10,8 @@ export type AppData = {
   guitarCount: number | null,
   isLoading: boolean,
   currentGuitars: GuitarType,
-  currentComments: Comments,
+  currentComments: Comment[],
+  commentsCounter: number,
+  isReviewOpen: boolean,
+  isSuccessOpen: boolean,
 };

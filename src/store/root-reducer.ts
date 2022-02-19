@@ -1,8 +1,8 @@
 import { combineReducers, createAction, Middleware } from '@reduxjs/toolkit';
 import browserHistory from '../browser-history/browser-history';
 import { AppRoute, Reducer } from '../const';
-import appDataReducer from './redusers/data-reducer';
-import appClientSlice from './redusers/client-reducer';
+import appDataReducer from './redusers/data-reducer/data-reducer';
+import appClientSlice from './redusers/client-reduser/client-reducer';
 
 export enum middleware {
   RedirectToRoute = 'app/redirectToRoute',

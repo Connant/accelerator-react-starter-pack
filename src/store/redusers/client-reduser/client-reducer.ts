@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Slice, SortState, FilterState } from '../../const';
+import { Slice, SortState, FilterState } from '../../../const';
 
 export type AppClient = {
   sort: SortState,
@@ -43,6 +43,6 @@ const appClientSlice = createSlice({
   },
 });
 
-export const { setSort, setFilter, searchCriteria, researchCriteria } = appClientSlice.actions;
+export const { setSort, setFilter, resetSort, searchCriteria, researchCriteria } = appClientSlice.actions;
 
 export default appClientSlice.reducer;

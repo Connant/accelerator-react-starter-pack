@@ -7,9 +7,9 @@ import { ratingList } from '../../utils';
 import IconRating from '../card-rating/icon-rating';
 import Footer from '../footer/footer';
 import Header from '../header/header';
-import BreadCrumps from './bread-crumps/bread-crumps';
-import CardInfo from './card-info/card-info';
-import Review from './review/review';
+import BreadCrumps from '../card-page/bread-crumps/bread-crumps';
+import CardInfo from '../card-page/card-info/card-info';
+import ReviewSection from '../card-page/review/review-section';
 
 
 export default function CardPage(): JSX.Element {
@@ -20,14 +20,6 @@ export default function CardPage(): JSX.Element {
 
   const starsCount= Math.trunc(guitar?.rating || 0);
 
-  const starsList = ratingList.slice(starsCount).map((ratingValue) =>
-    <IconRating key={ratingValue} iconClass={STAR_ICON} />,
-  );
-
-  const fullStarsList = ratingList.slice(0, starsCount).map((ratingValue) =>
-    <IconRating key={ratingValue} iconClass={STAR_FULL_ICON} />,
-  );
-
   return (
     <React.Fragment>
       <Header />
@@ -37,7 +29,7 @@ export default function CardPage(): JSX.Element {
 
           <BreadCrumps guitar={currentGuitar} />
           <CardInfo guitar={currentGuitar} />
-          <Review />
+          <ReviewSection />
 
         </div>
       </main>

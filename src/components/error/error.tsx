@@ -5,7 +5,7 @@ export default function Error(): JSX.Element {
   return (
     <div className="error">
       <h1>
-        404.
+        Error 404.
         <br />
         <small>Sorry, page not found</small>
       </h1>

@@ -42,7 +42,7 @@ export default function Pagination({page}: Props): JSX.Element {
   };
 
   return (
-    <div className="pagination page-content__pagination" data-testid="pagination">
+    <div className="pagination page-content__pagination">
 
       <ul className="pagination__list">
         {Number(page) !== PAGINATION_DEFAULT_PAGE && (

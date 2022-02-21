@@ -5,7 +5,7 @@ type Props = {
   guitar: GuitarType;
 }
 
-export default function BreadCrumps({guitar}: Props): JSX.Element {
+export default function BreadCrumbs({guitar}: Props): JSX.Element {
   return (
     <ul className="breadcrumbs page-content__breadcrumbs">
       <li className="breadcrumbs__item"><a className="link" href="/">Главная</a>

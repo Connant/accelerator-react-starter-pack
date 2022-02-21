@@ -1,6 +1,5 @@
 
 import { GuitarType, GuitarsList, CompleteGuitar, Comment } from './types';
-// import { Comment } from './types';
 
 export type AppData = {
   guitarsSearch: GuitarsList;

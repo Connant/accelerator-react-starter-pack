@@ -8,7 +8,7 @@ import { generatePath, Routes, Route, HistoryRouter } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { MockDATA, MockCLIENT, fakeProduct } from '../../../mocks/mocks';
 import { ROOT } from '../../../test-utils';
-import BreadCrumps from './bread-crumps';
+import BreadCrumbs from './bread-crumbs';
 
 
 const history = createMemoryHistory();
@@ -28,11 +28,11 @@ const renderBreadcrumbs = () =>
   render(
     <Provider store={store}>
       <HistoryRouter history={history}>
-        <BreadCrumps guitar={fakeProduct}/>
+        <BreadCrumbs guitar={fakeProduct}/>
       </HistoryRouter>
     </Provider>);
 
-describe('Component: BreadCrumps', () => {
+describe('Component: BreadCrumbs', () => {
   it('should render correctly', () => {
     act(() => {
       history.push(AppRoute.Main);
@@ -65,7 +65,7 @@ describe('Component: BreadCrumps', () => {
       <Provider store={store}>
         <HistoryRouter history={history}>
           <Routes>
-            <Route path={AppRoute.Main} element={<BreadCrumps guitar={fakeProduct}/>} />
+            <Route path={AppRoute.Main} element={<BreadCrumbs guitar={fakeProduct}/>} />
             <Route path={AppRoute.ListPage} element={<h1>{ROOT}</h1>} />
           </Routes>
         </HistoryRouter>

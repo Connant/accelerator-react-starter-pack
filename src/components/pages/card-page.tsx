@@ -7,7 +7,7 @@ import { ratingList } from '../../utils';
 import IconRating from '../card-rating/icon-rating';
 import Footer from '../footer/footer';
 import Header from '../header/header';
-import BreadCrumps from '../card-page/bread-crumps/bread-crumps';
+import BreadCrumbs from '../card-page/bread-crumbs/bread-crumbs';
 import CardInfo from '../card-page/card-info/card-info';
 import ReviewSection from '../card-page/review/review-section';
 
@@ -27,7 +27,7 @@ export default function CardPage(): JSX.Element {
         <div className="container">
           <h1 className="page-content__title title title--bigger">Товар</h1>
 
-          <BreadCrumps guitar={currentGuitar} />
+          <BreadCrumbs guitar={currentGuitar} />
           <CardInfo guitar={currentGuitar} />
           <ReviewSection />
 

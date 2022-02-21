@@ -1,11 +1,4 @@
 
-
-export type Type = {
-  acoustic?: string;
-  electric?: string;
-  ukulele?: string;
-}
-
 export type ViewState = {
   sort?: string;
   order?: string;
@@ -14,13 +7,6 @@ export type ViewState = {
   price_gte?: string;
   price_lte?: string;
   page?: string;
-}
-
-export type StringCount = {
-  fourStrings?: string;
-  sixStrings?: string;
-  sevenStrings?: string;
-  twelveStrings?: string;
 }
 
 export type Comment = {

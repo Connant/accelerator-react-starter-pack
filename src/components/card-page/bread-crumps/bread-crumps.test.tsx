@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import { generatePath, Routes, Route, BrowserRouter } from 'react-router-dom';
+import { generatePath, Routes, Route, HistoryRouter } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { MockDATA, MockCLIENT, fakeProduct } from '../../../mocks/mocks';
 import { ROOT } from '../../../test-utils';
@@ -27,9 +27,9 @@ const store = mockStore(componentState);
 const renderBreadcrumbs = () =>
   render(
     <Provider store={store}>
-      <BrowserRouter>
+      <HistoryRouter history={history}>
         <BreadCrumps guitar={fakeProduct}/>
-      </BrowserRouter>
+      </HistoryRouter>
     </Provider>);
 
 describe('Component: BreadCrumps', () => {
@@ -63,12 +63,12 @@ describe('Component: BreadCrumps', () => {
     });
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <HistoryRouter history={history}>
           <Routes>
             <Route path={AppRoute.Main} element={<BreadCrumps guitar={fakeProduct}/>} />
             <Route path={AppRoute.ListPage} element={<h1>{ROOT}</h1>} />
           </Routes>
-        </BrowserRouter>
+        </HistoryRouter>
       </Provider>);
     expect(screen.queryByText(/root/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByText(/Главная/i));

@@ -1,13 +1,16 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HistoryRouter, Routes, Route } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { AppRoute } from '../../../../const';
 import { MockCLIENT, fakeProduct } from '../../../../mocks/mocks';
 import { CompleteGuitar } from '../../../../types/types';
 import Card from './card';
+import { createMemoryHistory } from 'history';
 
+
+const history = createMemoryHistory();
 
 const mockStore = configureMockStore();
 
@@ -35,11 +38,11 @@ describe('Component: Card', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <HistoryRouter history={history}>
           <Routes>
             <Route path={AppRoute.Main} element={<Card guitar={guitar} />} />
           </Routes>
-        </BrowserRouter>
+        </HistoryRouter>
       </Provider>);
     expect(screen.getByText(NAME)).toBeInTheDocument();
     expect(screen.getByText(guitar.rating)).toBeInTheDocument();

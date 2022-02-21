@@ -4,12 +4,13 @@ import App from './components/app/app';
 
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { HistoryRouter } from 'react-router-dom';
 import { RootReducer, redirect } from './store/root-reducer';
 import { ToastContainer } from 'react-toastify';
 import ReviewForm from './components/card-page/review/modals/review-form/review-form';
 import ModalOk from './components/card-page/review/modals/modal-ok/mpdal-ok';
 import { api } from './service/api';
+import browserHistory from './browser-history/browser-history';
 
 export const store = configureStore({
   reducer: RootReducer,
@@ -21,12 +22,12 @@ export const store = configureStore({
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <App />
         <ReviewForm />
         <ModalOk />
         <ToastContainer limit={1} />
-      </BrowserRouter>
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

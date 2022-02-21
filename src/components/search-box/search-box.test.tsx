@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
 import * as Redux from 'react-redux';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, HistoryRouter } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { CreateFakeGuitar, MockDATA, MockCLIENT } from '../../mocks/mocks';
 import { searchCriteria } from '../../store/redusers/client-reduser/client-reducer';
@@ -96,12 +96,12 @@ describe('Component: SearchBox', () => {
     history.push(`/${AppRoute.Main}`);
     render(
       <Redux.Provider store={store}>
-        <BrowserRouter>
+        <HistoryRouter history={history}>
           <Routes>
             <Route path={AppRoute.Main} element={<SearchBox />} />
             <Route path={`/guitar/${ID}`} element={<h1>Товар</h1>} />
           </Routes>
-        </BrowserRouter>
+        </HistoryRouter>
       </Redux.Provider>);
 
     expect(screen.queryByAltText(/Товар/i)).not.toBeInTheDocument();

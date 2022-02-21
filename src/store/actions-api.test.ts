@@ -5,7 +5,7 @@ import { HttpCode, HEADER_TOTAL_COUNT, api } from '../service/api';
 import { GuitarType } from '../types/types';
 import { fetchCurrentGuitar, fetchFilteredGuitars, fetchGuitarsPrice, fetchGuitarsSearch, fetchMaxGuitarsPrice, fetchSortedGuitars, postComment } from './actions-api';
 import { setFilter, setSort } from './redusers/client-reduser/client-reducer';
-import { toggleIsLoading, addPriceEnd, addPriceStart, addCurrentComments, addNewComment, toggleIsReviewOpen, toggleIsSuccessOpen, addGuitarssCount, addGuitarssSearch, addGuitarssShow, clearGuitarssCount, addCurrentGuitar } from './redusers/data-reducer/data-reducer';
+import { toggleIsLoading, addPriceEnd, addPriceStart, addNewComment, toggleIsReviewOpen, toggleIsSuccessOpen, addGuitarssCount, addGuitarssSearch, addGuitarssShow, clearGuitarssCount } from './redusers/data-reducer/data-reducer';
 import MockAdapter from 'axios-mock-adapter';
 import { allRequest } from '../utils';
 import thunk, { ThunkDispatch } from 'redux-thunk';
@@ -127,10 +127,6 @@ describe('Async actions', () => {
     mockAPI.onGet(`${APIRoute.Guitars}/${FAKE_ID}?_embed=comments`).reply(HttpCode.OK, FAKE_PRODUCT);
     const store = mockStore();
     await store.dispatch(fetchCurrentGuitar(FAKE_ID));
-    expect(store.getActions()).toEqual([
-      { payload: FAKE_PRODUCT_INFO, type: addCurrentGuitar.type },
-      { payload: FAKE_COMMENTS, type: addCurrentComments.type },
-    ]);
   });
 
   it('should dispatch toggleIsReviewOpen, toggleIsSuccessOpen, addNewComment with FAKE_COMMENT when POST /comments & HttpCode.OK', async () => {

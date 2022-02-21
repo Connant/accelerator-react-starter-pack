@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as Redux from 'react-redux';
 import { cleanup, render, screen } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
@@ -6,21 +7,22 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { MockDATA, fakeProducts, MockCLIENT, fakeGuitars } from '../../mocks/mocks';
 import Catalog from './catalog';
-import { BrowserRouter } from 'react-router-dom';
+import { HistoryRouter } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 
-jest.mock('../../store/redusers/client-reducer/client-reducer');
+jest.mock('../../store/redusers/client-reduser/client-reducer');
 jest.mock('../../store/actions-api');
 mockAllIsIntersecting(true);
 
-const PRODUCTS = 50;
+const GUITARS = 36;
 
 const mockStore = configureMockStore();
 const componentState = {
   DATA: {
     ...MockDATA,
-    productsShow: fakeProducts,
-    productsCount: PRODUCTS,
+    guitarsShow: fakeProducts,
+    guitarsCount: GUITARS,
     isLoading: false,
   },
   CLIENT: MockCLIENT,
@@ -35,22 +37,23 @@ const filterCurrent = {
 
 const dispatch = jest.fn();
 const useDispatch = jest.spyOn(Redux, 'useDispatch');
+const history = createMemoryHistory();
 
 const renderCatalogPage = (store: MockStore) =>
   render(
     <Redux.Provider store={store}>
-      <BrowserRouter>
+      <HistoryRouter history={history}>
         <Routes>
           <Route path={AppRoute.Main} element={<Navigate to={AppRoute.Main} />} />
           <Route path={AppRoute.ListPage} element={<Catalog guitars={fakeProducts} filter={filterCurrent} page={1} />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </Redux.Provider>);
 
 describe('Component: Catalog', () => {
   afterEach(cleanup);
   it('should render correctly', () => {
-    useDispatch.mockReturnValue(dispatch);
+    // useDispatch.mockReturnValue(dispatch);
     const store = mockStore(componentState);
     renderCatalogPage(store);
     expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();

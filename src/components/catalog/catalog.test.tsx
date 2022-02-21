@@ -22,7 +22,7 @@ const componentState = {
   DATA: {
     ...MockDATA,
     guitarsShow: fakeProducts,
-    guitarsCount: GUITARS,
+    guitarCount: GUITARS,
     isLoading: false,
   },
   CLIENT: MockCLIENT,
@@ -44,7 +44,7 @@ const renderCatalogPage = (store: MockStore) =>
     <Redux.Provider store={store}>
       <HistoryRouter history={history}>
         <Routes>
-          <Route path={AppRoute.Main} element={<Navigate to={AppRoute.Main} />} />
+          <Route index element={<Navigate to={(AppRoute.ListPage).replace(':number', '1')} replace />} />
           <Route path={AppRoute.ListPage} element={<Catalog guitars={fakeProducts} filter={filterCurrent} page={1} />} />
         </Routes>
       </HistoryRouter>
@@ -53,12 +53,12 @@ const renderCatalogPage = (store: MockStore) =>
 describe('Component: Catalog', () => {
   afterEach(cleanup);
   it('should render correctly', () => {
-    // useDispatch.mockReturnValue(dispatch);
+    useDispatch.mockReturnValue(dispatch);
     const store = mockStore(componentState);
     renderCatalogPage(store);
     expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
     expect(screen.getByText(/Фильтр/i)).toBeInTheDocument();
-    expect(screen.getByText(/Цена/i)).toBeInTheDocument();
+    expect(screen.getByText(/Цена, ₽/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/по цене/i)).toBeInTheDocument();
     expect(screen.queryAllByTestId('pagination').length).toEqual(3);
     expect(screen.queryAllByText(/Подробнее/i).length).toEqual(fakeGuitars.length);

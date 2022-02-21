@@ -37,7 +37,7 @@ export const MockCLIENT: AppClient = {
 };
 
 const COMMENTS_LENGTH = 5;
-const GUITARS_LENGTH = 10;
+const GUITARS_LENGTH = 9;
 
 
 export const CreateFakeComment = () => ({

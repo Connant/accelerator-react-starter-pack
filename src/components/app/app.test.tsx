@@ -16,7 +16,7 @@ describe('App Routing', () => {
           <App />
         </HistoryRouter>
       </Provider>);
-    expect(screen.getByAltText('Error')).toBeInTheDocument();
+    expect(screen.getByText('Error 404.')).toBeInTheDocument();
   });
 });
 

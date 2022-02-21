@@ -48,7 +48,7 @@ export default function Pagination({page}: Props): JSX.Element {
         {Number(page) !== PAGINATION_DEFAULT_PAGE && (
           <li className="pagination__page pagination__page--prev" id="prev" data-testid='Назад'>
             <Link to={String(PAGINATION_DEFAULT_PAGE)} onClick={handleClick} className="link pagination__page-link">
-              {backPage}
+              Назад
             </Link>
           </li>
         )}
@@ -74,7 +74,7 @@ export default function Pagination({page}: Props): JSX.Element {
         {Number(page) < pageCount && (
           <li className="pagination__page pagination__page--next" id="next" data-testid="Далее">
             <Link to={String(pageCount)} onClick={handleClick} className="link pagination__page-link" >
-              {nextPage}
+              Далее
             </Link>
           </li>
         )}

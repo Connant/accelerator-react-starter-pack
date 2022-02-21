@@ -13,7 +13,7 @@ const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
 const componentState = {
-  DATA: { ...MockDATA, productsCount: COUNT },
+  DATA: { ...MockDATA, guitarCount: COUNT },
   CLIENT: MockCLIENT,
 };
 const store = mockStore(componentState);
@@ -33,11 +33,11 @@ describe('Component: Pagination', () => {
   afterEach(cleanup);
   it('should render correctly', () => {
     act(() => {
-      history.replace(`/catalog/page_${2}`);
+      history.replace('/catalog/page_2');
     });
     renderPagination(2);
-    expect(screen.getByText(/Далее/i)).toBeInTheDocument();
     expect(screen.getByText(/Назад/i)).toBeInTheDocument();
+    expect(screen.getByText(/Далее/i)).toBeInTheDocument();
     expect(screen.getByTestId('Назад')).toBeVisible();
     expect(screen.getByTestId('Далее')).toBeVisible();
   });

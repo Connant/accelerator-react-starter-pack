@@ -40,7 +40,7 @@ describe('Async actions', () => {
     rating: 7,
   };
 
-  it('should dispatch addGuitarssSearch with fetchGuitarsSearch when GET /name_like & HttpCode.OK', async () => {
+  it('should dispatch addGuitarssSearch with fetchGuitarsSearch when GET OK', async () => {
     mockAPI.onGet(`${APIRoute.Guitars}?name_like=${PRODUCT_KEY}`).reply(HttpCode.OK, fakeGuitars);
     const store = mockStore({CLIENT: {...MockCLIENT, searchCriteria: PRODUCT_KEY}});
     await store.dispatch(fetchGuitarsSearch(PRODUCT_KEY));
@@ -54,7 +54,7 @@ describe('Async actions', () => {
     expect(store.getActions()).toEqual([]);
   });
 
-  it('should dispatch addGuitarsCount, addGuitarssShow, setFilter and redirect to first page when GET filter & HttpCode.OK', async () => {
+  it('should dispatch addGuitarCount, addGuitarssShow, setFilter and redirect to first page when GET OK', async () => {
     mockAPI.onGet(`${APIRoute.Guitars}${FAKE_QUERY}`).reply(HttpCode.OK, fakeProducts, {[HEADER_TOTAL_COUNT]:FAKE_COUNT});
     const store = mockStore({CLIENT: MockCLIENT});
     createFakeQuery.mockReturnValue(FAKE_QUERY);

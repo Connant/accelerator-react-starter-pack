@@ -20,7 +20,6 @@ export const initialState: AppData = {
 };
 
 const FAKE_PRICE = 1;
-// const FAKE_COUNT = 10;
 const FAKE_PRODUCT = CreateFakeGuitar();
 const FAKE_COMMENT = CreateFakeComment();
 const FAKE_COMMENT_COUNTER = 6;
@@ -64,12 +63,6 @@ describe('Reducer: appData', () => {
       priceEnd: FAKE_PRICE,
     });
   });
-  // it('should update guitarsCount by addGuitarssCount', () => {
-  //   expect(appData(state, addGuitarssCount(FAKE_COUNT))).toEqual({
-  //     ...state,
-  //     guitarsCount: FAKE_COUNT,
-  //   });
-  // });
   it('should update currentGuitars by addCurrentGuitar', () => {
     expect(appData(state, addCurrentGuitar(FAKE_PRODUCT))).toEqual({
       ...state,

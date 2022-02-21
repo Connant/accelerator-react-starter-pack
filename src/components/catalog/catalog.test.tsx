@@ -60,7 +60,7 @@ describe('Component: Catalog', () => {
     expect(screen.getByText(/Фильтр/i)).toBeInTheDocument();
     expect(screen.getByText(/Цена, ₽/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/по цене/i)).toBeInTheDocument();
-    expect(screen.queryAllByTestId('pagination').length).toEqual(3);
+    expect(screen.queryAllByTestId('pagination').length).toEqual(4);
     expect(screen.queryAllByText(/Подробнее/i).length).toEqual(fakeGuitars.length);
   });
 });

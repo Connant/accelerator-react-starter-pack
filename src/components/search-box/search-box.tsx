@@ -60,7 +60,7 @@ export default function SearchBox(): JSX.Element {
             <li className='form-search__select-item' tabIndex={0} key={name}
               onClick={() => {navigate(`/${path}`); dispatch(researchCriteria());}} onKeyPress={handleKeyPress}
             >
-              {name};
+              {name}
             </li>
           );})}
       </ul>

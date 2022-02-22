@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Comment } from '../../../../../types/types';
 import Rating from '../rating/rating';
 
@@ -8,6 +9,11 @@ type Props = {
 
 export default function Review({review}: Props): JSX.Element {
 
+
+  const getFormatDate = (date: string): string => dayjs(date).locale('ru').format('D MMMM');
+
+  const date = getFormatDate(review.createAt);
+
   return (
     <div className="review">
       <div className="review__wrapper">
@@ -15,7 +21,7 @@ export default function Review({review}: Props): JSX.Element {
           {review.userName}
         </h4>
         <span className="review__date">
-          {review.createAt}
+          {date}
         </span>
       </div>
       <div className="rate review__rating-panel" aria-hidden="true"><span className="visually-hidden">Рейтинг:</span>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +10,7 @@ import { getCurrentGuitar, getIsReviewOpen } from '../../../../../store/selector
 import { CommentData } from '../../../../../types/types';
 import { isEscEvent } from '../../../../../utils';
 import { STAR_NUMBERS, StarTitle } from '../../../../../const';
+import './review-form.css';
 
 
 export default function ReviewForm(): JSX.Element | null {
@@ -192,7 +194,7 @@ export default function ReviewForm(): JSX.Element | null {
                 className='modal__close-btn button-cross'
                 type='button'
                 aria-label='Закрыть'
-                onClick={handleOnCloseClick}
+                onClick={handleClick}
               >
                 <span className='button-cross__icon'></span>
                 <span className='modal__close-btn-interactive-area'></span>

@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { Comment } from '../../../../../types/types';
 import Rating from '../rating/rating';
+import 'dayjs/locale/ru';
 
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 export default function Review({review}: Props): JSX.Element {
 
 
-  const getFormatDate = (date: string): string => dayjs(date).locale('ru').format('D MMMM');
+  const getFormatDate = (date: string) => dayjs(date).locale('ru').format('DD MMMM').toString();
 
   const date = getFormatDate(review.createAt);
 

@@ -45,3 +45,21 @@ export type StringType = {
 export type GuitarsList = GuitarType[];
 
 export type CompleteGuitar = GuitarType & { comments: Comment[] };
+
+export type InCart = {
+  [key: string]: number
+}
+
+export type TotalPrice = {
+  [key: string]: number
+}
+
+export type Coupon = {
+  value: string | null,
+  sale: number,
+}
+
+export type Order = {
+  guitarsID: number[],
+  couponValue: null | string
+};

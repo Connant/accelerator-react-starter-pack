@@ -15,6 +15,11 @@ const initialState: AppData = {
   commentsCounter: DEFAULT_COMMENTS_COUNT,
   isReviewOpen: false,
   isSuccessOpen: false,
+  tempItemCart: {} as GuitarType,
+  productsInCart: [],
+  isCartAddOpen: false,
+  isCartDeleteOpen: false,
+  isCartSuccessOpen: false,
 };
 
 const appDataSlice = createSlice({
@@ -83,6 +88,35 @@ const appDataSlice = createSlice({
       state.isSuccessOpen = initialState.isSuccessOpen;
     },
 
+    addTempItemCart: (state, action: PayloadAction<GuitarType>) => {
+      state.tempItemCart = action.payload;
+    },
+    resetTempItemCart: (state) => {
+      state.tempItemCart = initialState.tempItemCart;
+    },
+    addProductsInCart: (state, action: PayloadAction<GuitarType[]>) => {
+      state.productsInCart = action.payload;
+    },
+    deleteProductFromCart: (state, action: PayloadAction<number>) => {
+      state.productsInCart = state.productsInCart.filter((product) => product.id !== action.payload);
+    },
+    clearProductsInCart: (state) => {
+      state.productsInCart = initialState.productsInCart;
+    },
+
+
+    toggleIsCartAddOpen: (state, action: PayloadAction<boolean>) => {
+      state.isCartAddOpen = action.payload;
+    },
+    toggleIsCartDeleteOpen: (state, action: PayloadAction<boolean>) => {
+      state.isCartDeleteOpen = action.payload;
+    },
+    toggleIsCartSuccessOpen: (state, action: PayloadAction<boolean>) => {
+      state.isCartSuccessOpen = action.payload;
+    },
+
+    // closeAllModals: () => initialState,
+
   },
 });
 
@@ -104,6 +138,14 @@ export const {
   resetCommentsCounter,
   toggleIsReviewOpen,
   toggleIsSuccessOpen,
-  closeAllModals } = appDataSlice.actions;
+  closeAllModals,
+  addTempItemCart,
+  resetTempItemCart,
+  addProductsInCart,
+  deleteProductFromCart,
+  clearProductsInCart,
+  toggleIsCartAddOpen,
+  toggleIsCartDeleteOpen,
+  toggleIsCartSuccessOpen } = appDataSlice.actions;
 
 export default appDataSlice.reducer;

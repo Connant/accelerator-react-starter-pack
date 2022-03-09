@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import CardPage from '../pages/card-page';
-import CartPage from '../cart-page/cart-page';
+import CartPage from '../pages/cart-page';
 import Error from '../error/error';
 import Main from '../pages/main';
 

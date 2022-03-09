@@ -1,14 +1,19 @@
+import { useSelector } from 'react-redux';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../../../const';
+import { getInCart } from '../../../../store/selectors';
 import { CompleteGuitar } from '../../../../types/types';
 import { replaceImagePath } from '../../../../utils';
 import CardRating from '../../../card-rating/card-rating';
+import AddButton from './buttons/add-button';
+import InButton from './buttons/in-button';
 
 type Props = {
   guitar: CompleteGuitar;
 };
 
 export default function Card({guitar}: Props): JSX.Element {
+  const inCart = useSelector(getInCart);
 
   const path = generatePath((AppRoute.CardPage).replace(':id', guitar.id.toString()));
 
@@ -35,9 +40,7 @@ export default function Card({guitar}: Props): JSX.Element {
         <Link className='button button--mini' to={`/${path}`}>
           Подробнее
         </Link>
-        <a href='/' className='button button--red button--mini button--add-to-cart'>
-          Купить
-        </a>
+        {guitar.id in inCart ? <InButton /> : <AddButton product={guitar} />}
       </div>
 
     </div>

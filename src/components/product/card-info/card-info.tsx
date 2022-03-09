@@ -1,10 +1,9 @@
-/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { GuitarsType } from '../../../const';
 import { fetchCurrentGuitar } from '../../../store/actions-api';
-import { clearCurrentGuitar } from '../../../store/redusers/data-reducer/data-reducer';
+import { addTempItemCart, clearCurrentGuitar, toggleIsCartAddOpen } from '../../../store/redusers/data-reducer/data-reducer';
 import { GuitarType } from '../../../types/types';
 import CardRating from '../../card-rating/card-rating';
 
@@ -57,6 +56,11 @@ export default function CardInfo({guitar}: Props): JSX.Element {
     toggleIsCharTab();
   };
 
+  const handleOnAddBtnClick = () => {
+    dispatch(addTempItemCart(guitar));
+    dispatch(toggleIsCartAddOpen(true));
+  };
+
   return (
     <div className="product-container">
       <img className="product-container__img" src="/img/content/guitar-2.jpg" width="90" height="235" alt="" />
@@ -107,9 +111,19 @@ export default function CardInfo({guitar}: Props): JSX.Element {
           </div>
         </div>
       </div>
-      <div className="product-container__price-wrapper">
-        <p className="product-container__price-info product-container__price-info--title">Цена:</p>
-        <p className="product-container__price-info product-container__price-info--value">{guitar.price}₽</p><a className="button button--red button--big product-container__button" href="/">Добавить в корзину</a>
+      <div className='product-container__price-wrapper'>
+        <p className='product-container__price-info product-container__price-info--title'>
+        Цена:
+        </p>
+        <p className='product-container__price-info product-container__price-info--value'>
+          {guitar.price} ₽
+        </p>
+        <button
+          onClick={handleOnAddBtnClick}
+          className='button button--red button--big product-container__button'
+        >
+        Добавить в корзину
+        </button>
       </div>
     </div>
   );

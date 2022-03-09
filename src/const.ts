@@ -4,6 +4,8 @@ export const TOTAL_COUNT = 'x-total-count';
 export enum APIRoute {
   Guitars = '/guitars',
   Comments = '/comments',
+  Coupons = '/coupons',
+  Orders = '/orders',
 }
 
 export enum AppRoute {
@@ -102,3 +104,13 @@ export enum ToolType {
   Electric = 'electric',
   Ukulele = 'ukulele',
 }
+
+export const CouponError = {
+  value: 'error',
+  sale: 0,
+};
+
+export const CouponInit = {
+  value: '',
+  sale: 0,
+};

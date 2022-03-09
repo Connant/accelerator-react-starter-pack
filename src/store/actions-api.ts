@@ -1,11 +1,14 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FilterState, FIRST_GUITAR, PAGINATION_DEFAULT_PAGE, SortState, TOTAL_COUNT, APIRoute, AppRoute } from '../const';
+import { FilterState, FIRST_GUITAR, PAGINATION_DEFAULT_PAGE, SortState, TOTAL_COUNT, APIRoute, AppRoute, CouponError } from '../const';
 import { ThunkActionResult } from '../types/actions';
-import { CompleteGuitar, GuitarType, GuitarsList, CommentPost, Comment } from '../types/types';
+import { CompleteGuitar, GuitarType, GuitarsList, CommentPost, Comment, Order } from '../types/types';
 import { allRequest } from '../utils';
-import { addGuitarssSearch, toggleIsLoading, clearGuitarssCount, addGuitarssCount, addGuitarssShow, addPriceStart, addPriceEnd, addCurrentGuitar, addNewComment, toggleIsReviewOpen, toggleIsSuccessOpen, addCurrentComments } from './redusers/data-reducer/data-reducer';
-import { setFilter, setSort } from './redusers/client-reduser/client-reducer';
+import { addGuitarssSearch, toggleIsLoading, clearGuitarssCount, addGuitarssCount, addGuitarssShow, addPriceStart, addPriceEnd, addCurrentGuitar, addNewComment, toggleIsReviewOpen, toggleIsSuccessOpen, addCurrentComments, addProductsInCart, clearProductsInCart } from './redusers/data-reducer/data-reducer';
+import { addCoupon, clearCart, clearCoupon, setFilter, setSort } from './redusers/client-reduser/client-reducer';
+import axios from 'axios';
+
+export const SUCCESS_MESSAGE = 'Order is successful';
 
 export const fetchGuitarsSearch = (searchCriteria: string): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
@@ -132,7 +135,6 @@ export const fetchCurrentGuitar = (id: string): ThunkActionResult =>
     }
   };
 
-
 export const postComment = (comment: CommentPost): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     try {
@@ -147,3 +149,53 @@ export const postComment = (comment: CommentPost): ThunkActionResult =>
       toast.clearWaitingQueue();
     }
   };
+
+export const fetchCartProducts =
+    (productsIDs: string[]): ThunkActionResult =>
+      async (dispatch, _getState, api): Promise<void> => {
+        dispatch(toggleIsLoading(true));
+        try {
+          const response = await
+          axios.all(productsIDs.map((id) => api.get<CompleteGuitar>(`${APIRoute.Guitars}/${id}`)));
+          const products = response.map((resp) => resp.data);
+          dispatch(addProductsInCart(products));
+        } catch {
+          toast.error('Что-то пошло не так, попробуйте позже', {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          toast.clearWaitingQueue();
+        }
+        dispatch(toggleIsLoading(false));
+      };
+
+export const requestCoupon =
+    (value: string): ThunkActionResult =>
+      async (dispatch, _getState, api): Promise<void> => {
+        try {
+          const { data } = await api.post<number>(`${APIRoute.Coupons}`, {couponValue: value});
+          dispatch(addCoupon({value, sale: data}));
+        } catch {
+          dispatch(addCoupon(CouponError));
+          toast.error('Ваш промокод не принят, проверьте правильность или попробуйте позднее', {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          toast.clearWaitingQueue();
+        }
+      };
+
+export const requestOrder =
+      (order: Order): ThunkActionResult =>
+        async (dispatch, getState, api): Promise<void> => {
+          try {
+            await api.post<number>(`${APIRoute.Orders}`, order);
+            dispatch(clearProductsInCart());
+            dispatch(clearCoupon());
+            dispatch(clearCart());
+            toast.success(SUCCESS_MESSAGE);
+          } catch {
+            toast.error('Что-то пошло не так, попробуйте позже', {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            toast.clearWaitingQueue();
+          }
+        };

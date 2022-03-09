@@ -13,6 +13,7 @@ const componentState = {
 };
 const store = mockStore(componentState);
 
+
 describe('Component: CardInfo', () => {
   it('should render & swich correctly', () => {
     customRenderProvider(<CardInfo guitar={fakecurrentGuitar}/>, store);

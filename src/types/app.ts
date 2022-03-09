@@ -13,4 +13,9 @@ export type AppData = {
   commentsCounter: number,
   isReviewOpen: boolean,
   isSuccessOpen: boolean,
+  tempItemCart: GuitarType;
+  productsInCart: GuitarType[];
+  isCartAddOpen: boolean,
+  isCartDeleteOpen: boolean,
+  isCartSuccessOpen: boolean,
 };

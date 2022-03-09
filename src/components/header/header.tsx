@@ -2,8 +2,12 @@ import SearchBox from '../search-box/search-box';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import SvgBasket from './cart/svg-basket';
+import { useSelector } from 'react-redux';
+import { getTotalInCart } from '../../store/selectors';
 
 export default function Header(): JSX.Element {
+  const totalInCart = useSelector(getTotalInCart);
+
   return (
     <header className="header" id="header">
       <div className="container header__wrapper">
@@ -33,7 +37,9 @@ export default function Header(): JSX.Element {
         <Link to={AppRoute.Cart} className="header__cart-link" aria-label="Корзина">
           <SvgBasket />
           <span className="visually-hidden">Перейти в корзину</span>
-          <span className="header__cart-count">2</span>
+          {!!totalInCart && (
+            <span className='header__cart-count'>{totalInCart}</span>
+          )}
         </Link>
       </div>
     </header>

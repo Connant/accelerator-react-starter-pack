@@ -1,6 +1,6 @@
 import { RATING_STARTS_WITH, RATING_STARS_COUNT, FilterState, SortState, NUMBER_OF_CARDS } from './const';
 import queryString from 'query-string';
-import { Comment } from './types/types';
+import { Comment, InCart } from './types/types';
 
 export function replaceImagePath(receivedPath:string, replace = 'img', clientPath = '/img/content') {
   return receivedPath.replace(replace, clientPath);
@@ -39,7 +39,6 @@ export const allRequest = ( page: number | undefined, filter: FilterState, sorti
 
   const request = [pageRequest, filterdQuery, sortQuery].filter((query) =>
     query !== '' && query !== undefined).join('&');
-
   return `/?${request}`;
 };
 
@@ -48,3 +47,14 @@ export const getCommentsSortByDate = (comments: Comment[]): Comment[] =>
 
 export const isEscEvent = (evt: KeyboardEvent): boolean => evt.key === 'Escape' || evt.key === 'Esc';
 
+export const getSumValues = (object: InCart): number => {
+  const values = Object.values(object);
+  return values.length !== 0 ? values.reduce((sum, item) => sum = sum+item) : 0;
+};
+
+export const getAllIDs = (object: InCart): number[] =>
+  Object.entries(object)
+    .reduce((allIDs: number[], [key, value]) => {
+      const currentIDs = new Array(value).fill(Number(key));
+      return [...allIDs, ...currentIDs];
+    }, [] as number[]);

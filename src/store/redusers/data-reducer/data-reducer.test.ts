@@ -17,6 +17,11 @@ export const initialState: AppData = {
   commentsCounter: DEFAULT_COMMENTS_COUNT,
   isReviewOpen: false,
   isSuccessOpen: false,
+  tempItemCart: {} as GuitarType,
+  productsInCart: [],
+  isCartAddOpen: false,
+  isCartDeleteOpen: false,
+  isCartSuccessOpen: false,
 };
 
 const FAKE_PRICE = 1;

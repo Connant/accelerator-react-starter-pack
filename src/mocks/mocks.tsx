@@ -20,6 +20,11 @@ export const MockDATA: AppData = {
   commentsCounter: DEFAULT_COMMENTS_COUNT,
   isReviewOpen: false,
   isSuccessOpen: false,
+  tempItemCart: {} as GuitarType,
+  productsInCart: [],
+  isCartAddOpen: false,
+  isCartDeleteOpen: false,
+  isCartSuccessOpen: false,
 };
 
 export const MockCLIENT: AppClient = {
@@ -34,6 +39,12 @@ export const MockCLIENT: AppClient = {
     maxPrice: '',
   },
   searchCriteria: '',
+  inCart: {},
+  totalPrice: {},
+  coupon: {
+    value: null,
+    sale: 0,
+  },
 };
 
 const COMMENTS_LENGTH = 5;

@@ -13,6 +13,12 @@ const initialState: AppClient = {
     maxPrice: '',
   },
   searchCriteria: '',
+  inCart: {},
+  totalPrice: {},
+  coupon: {
+    value: '',
+    sale: 0,
+  },
 };
 
 const FAKE_SORT = {

@@ -7,9 +7,9 @@ import { ratingList } from '../../utils';
 import IconRating from '../card-rating/icon-rating';
 import Footer from '../footer/footer';
 import Header from '../header/header';
-import BreadCrumbs from '../card-page/bread-crumbs/bread-crumbs';
-import CardInfo from '../card-page/card-info/card-info';
-import ReviewSection from '../card-page/review/review-section';
+import BreadCrumbs from '../product/bread-crumbs/bread-crumbs';
+import CardInfo from '../product/card-info/card-info';
+import ReviewSection from '../product/review/review-section';
 
 
 export default function CardPage(): JSX.Element {

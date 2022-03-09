@@ -42,8 +42,6 @@ const componentState = {
 const componentStateMax = {
   CLIENT: { ...MockCLIENT, inCart: FakeInCartMax, totalPrice: FakeTotalPrice },
 };
-// const fakeProductType = GuitarsType.get(fakeProduct.type)?.type;
-
 
 describe('Component: CartItem', () => {
   it('should render correctly', () => {
@@ -57,11 +55,6 @@ describe('Component: CartItem', () => {
           </Routes>
         </BrowserRouter>
       </Redux.Provider>);
-    // expect(screen.getByText(`${fakeProductType} ${fakeProduct.name}`)).toBeInTheDocument();
-    // expect(screen.getByAltText(`${fakeProduct.name}`)).toBeInTheDocument();
-    // expect(screen.getByText(`Артикул: ${fakeProduct.vendorCode}`)).toBeInTheDocument();
-    // expect(screen.getByText(`${fakeProductType}, ${fakeProduct.stringCount} струнная`)).toBeInTheDocument();
-    // expect(screen.getByText(`${fakeProduct.price} ₽`)).toBeInTheDocument();
     expect(screen.getByText(`${FAKE_TOTAL_PRICE} ₽`)).toBeInTheDocument();
     expect(screen.getByTestId('quantity')).toBeInTheDocument();
     expect(screen.getByTestId('quantity')).toHaveValue(FAKE_COUNT.toString());

@@ -114,9 +114,6 @@ const appDataSlice = createSlice({
     toggleIsCartSuccessOpen: (state, action: PayloadAction<boolean>) => {
       state.isCartSuccessOpen = action.payload;
     },
-
-    // closeAllModals: () => initialState,
-
   },
 });
 

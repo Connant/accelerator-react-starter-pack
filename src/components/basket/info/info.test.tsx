@@ -43,7 +43,6 @@ const componentStateWithCoupon = {
 describe('Component: Info', () => {
   it('should render correctly without sale', () => {
     const store = mockStore(componentState);
-    // customRenderWithProvider(<Info />, store);
     render(
       <Redux.Provider store={store}>
         <BrowserRouter>

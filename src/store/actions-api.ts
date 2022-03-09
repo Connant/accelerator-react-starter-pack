@@ -117,9 +117,6 @@ export const fetchGuitarsPrice = (): ThunkActionResult =>
     dispatch(toggleIsLoading(false));
   };
 
-
-// CARD PADE
-
 export const fetchCurrentGuitar = (id: string): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     try {

@@ -5,7 +5,7 @@ import { getTotalPrices, getTotalSale, getCoupon, getOrdersIDs } from '../../../
 export default function Info (): JSX.Element {
   const totalPrices = useSelector(getTotalPrices);
   const totalSale = useSelector(getTotalSale);
-  const couponValue = useSelector(getCoupon).value;
+  const coupon = useSelector(getCoupon).value;
   const guitarsID = useSelector(getOrdersIDs);
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ export default function Info (): JSX.Element {
           {totalPrices - totalSale} ₽
         </span>
       </p>
-      <button onClick={()=>dispatch(requestOrder({ guitarsID, couponValue }))} className='button button--red button--big cart__order-button'>
+      <button onClick={()=>dispatch(requestOrder({ guitarsID, coupon }))} className='button button--red button--big cart__order-button'>
         Оформить заказ
       </button>
     </div>

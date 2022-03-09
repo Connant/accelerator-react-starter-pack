@@ -61,5 +61,5 @@ export type Coupon = {
 
 export type Order = {
   guitarsID: number[],
-  couponValue: null | string
+  coupon: null | string
 };

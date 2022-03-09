@@ -7,10 +7,10 @@ import { getCoupon } from '../../../store/selectors';
 
 
 export default function Coupon (): JSX.Element {
-  const couponValue = useSelector(getCoupon).value;
+  const coupon = useSelector(getCoupon).value;
   const dispatch = useDispatch();
 
-  const initialValue = couponValue === null || couponValue === CouponError.value ? '' : couponValue;
+  const initialValue = coupon === null || coupon === CouponError.value ? '' : coupon;
 
   const [coupon, setCoupon] = useState(initialValue);
 
@@ -43,12 +43,12 @@ export default function Coupon (): JSX.Element {
             value={coupon}
             data-testid='coupon'
           />
-          {couponValue !== null && couponValue !== CouponError.value && (
+          {coupon !== null && coupon !== CouponError.value && (
             <p className='form-input__message form-input__message--success'>
               Промокод принят
             </p>
           )}
-          {couponValue === CouponError.value && (
+          {coupon === CouponError.value && (
             <p className='form-input__message form-input__message--error'>
               неверный промокод
             </p>

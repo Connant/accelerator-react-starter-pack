@@ -172,7 +172,7 @@ export const requestCoupon =
     (value: string): ThunkActionResult =>
       async (dispatch, _getState, api): Promise<void> => {
         try {
-          const { data } = await api.post<number>(`${APIRoute.Coupons}`, {couponValue: value});
+          const { data } = await api.post<number>(`${APIRoute.Coupons}`, {coupon: value});
           dispatch(addCoupon({value, sale: data}));
         } catch {
           dispatch(addCoupon(CouponError));

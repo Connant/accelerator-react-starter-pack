@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState, useRef, ChangeEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GuitarsType } from '../../../const';
@@ -116,7 +117,9 @@ export default function CartItem ({guitar}: Props): JSX.Element {
         </button>
       </div>
 
-      <div className='cart-item__price-total'>{totalPrice} ₽</div>
+      <div className='cart-item__price-total'>
+        {(totalPrice !== undefined) ? prettify(totalPrice) : ''} ₽
+      </div>
     </div>
   );
 }

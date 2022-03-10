@@ -16,12 +16,15 @@ export default function Info (): JSX.Element {
         <span className='cart__total-value-name'>Всего:</span>
         <span className='cart__total-value'>{prettify(totalPrices)} ₽</span>
       </p>
+
       <p className='cart__total-item'>
         <span className='cart__total-value-name'>Скидка:</span>
         <span data-testid='sale' className={`cart__total-value ${!!totalSale && 'cart__total-value--bonus'}`}>
-          - {prettify(totalSale)} ₽
+
+          {(totalSale === 0) ? '' : '-'} {prettify(totalSale)} ₽
         </span>
       </p>
+
       <p className='cart__total-item'>
         <span className='cart__total-value-name'>К оплате:</span>
         <span className='cart__total-value cart__total-value--payment'>

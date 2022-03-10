@@ -43,7 +43,7 @@ export default function Coupon (): JSX.Element {
             value={coupon.trim()}
             data-testid='coupon'
           />
-          {couponValue !== null && couponValue !== CouponError.value && (
+          {couponValue !== null && couponValue !== '' && couponValue !== CouponError.value && (
             <p className='form-input__message form-input__message--success'>
               Промокод принят
             </p>

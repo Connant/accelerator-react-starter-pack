@@ -1,5 +1,5 @@
 import SearchBox from '../search-box/search-box';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import SvgBasket from './cart/svg-basket';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,14 @@ import { getTotalInCart } from '../../store/selectors';
 
 export default function Header(): JSX.Element {
   const totalInCart = useSelector(getTotalInCart);
+
+  const { pathname } = useLocation();
+
+  const HeaderLinks = new Map([
+    ['catalog', { title: 'Каталог', link: AppRoute.Main}],
+    ['where', { title: 'Где купить?', link: AppRoute.Error}],
+    ['about', { title: 'О компании', link: AppRoute.Error}],
+  ]);
 
   return (
     <header className="header" id="header">
@@ -21,16 +29,24 @@ export default function Header(): JSX.Element {
           />
         </Link>
         <nav className="main-nav">
-          <ul className="main-nav__list">
-            <li>
-              <a className="link main-nav__link link--current" href="/">Каталог</a>
-            </li>
-            <li>
-              <a className="link main-nav__link" href="/">Где купить?</a>
-            </li>
-            <li>
-              <a className="link main-nav__link" href="/">О компании</a>
-            </li>
+          <ul className='main-nav__list'>
+            {[...HeaderLinks.keys()].map((headerLink) => {
+              const link = HeaderLinks.get(headerLink)?.link;
+              const title = HeaderLinks.get(headerLink)?.title;
+              const isActiveLink = pathname.includes(headerLink);
+              return (
+                <li key={headerLink}>
+                  <Link
+                    className={`link main-nav__link ${
+                      isActiveLink ? 'link--current' : ''
+                    }`}
+                    to={link}
+                  >
+                    {title}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
         <SearchBox />

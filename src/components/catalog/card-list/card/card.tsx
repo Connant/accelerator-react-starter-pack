@@ -3,7 +3,7 @@ import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../../../const';
 import { getInCart } from '../../../../store/selectors';
 import { CompleteGuitar } from '../../../../types/types';
-import { replaceImagePath } from '../../../../utils';
+import { prettify, replaceImagePath } from '../../../../utils';
 import CardRating from '../../../card-rating/card-rating';
 import AddButton from './buttons/add-button';
 import InButton from './buttons/in-button';
@@ -31,7 +31,7 @@ export default function Card({guitar}: Props): JSX.Element {
         <p className='product-card__title'>{guitar.name}</p>
         <p className='product-card__price'>
           <span className='visually-hidden'>Цена:</span>
-          {guitar.price} ₽
+          {prettify(guitar.price)} ₽
         </p>
 
       </div>

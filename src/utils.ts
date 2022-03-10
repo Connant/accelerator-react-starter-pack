@@ -58,3 +58,9 @@ export const getAllIDs = (object: InCart): number[] =>
       const currentIDs = new Array(value).fill(Number(key));
       return [...allIDs, ...currentIDs];
     }, [] as number[]);
+
+export function prettify(num: number) {
+  const n = num.toString();
+  // eslint-disable-next-line no-useless-concat
+  return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, '$1' + ' ');
+}

@@ -5,7 +5,7 @@ import { setQuantityCart, setTotalPrice } from '../../../store/redusers/client-r
 import { addTempItemCart, toggleIsCartDeleteOpen } from '../../../store/redusers/data-reducer/data-reducer';
 import { getInCart, getTotalPrice } from '../../../store/selectors';
 import { GuitarType } from '../../../types/types';
-import { replaceImagePath } from '../../../utils';
+import { prettify, replaceImagePath } from '../../../utils';
 
 export const DELAY_QUANT = 240;
 export const MAX_IN_CART = 99;
@@ -69,7 +69,7 @@ export default function CartItem ({guitar}: Props): JSX.Element {
         <p className="product-info__info">Артикул: {guitar.vendorCode}</p>
         <p className="product-info__info">{productType}, {guitar.stringCount} струнная</p>
       </div>
-      <div className="cart-item__price">{guitar.price} ₽</div>
+      <div className="cart-item__price">{prettify(guitar.price)} ₽</div>
 
 
       <div className="quantity cart-item__quantity">

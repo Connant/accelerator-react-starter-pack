@@ -7,7 +7,7 @@ import { GuitarsType } from '../../../const';
 import { addToCart } from '../../../store/redusers/client-reduser/client-reducer';
 import { closeAllModals, resetTempItemCart, toggleIsCartAddOpen, toggleIsCartSuccessOpen } from '../../../store/redusers/data-reducer/data-reducer';
 import { getTempItemCart, getIsCartAddOpen } from '../../../store/selectors';
-import { isEscEvent } from '../../../utils';
+import { isEscEvent, prettify } from '../../../utils';
 
 
 export default function ModalCartAdd(): JSX.Element | null {
@@ -80,7 +80,7 @@ export default function ModalCartAdd(): JSX.Element | null {
                   </p>
                   <p className='modal__price-wrapper'>
                     <span className='modal__price'>Цена:</span>
-                    <span className='modal__price'>{price} ₽</span>
+                    <span className='modal__price'>{prettify(price)} ₽</span>
                   </p>
                 </div>
               </div>

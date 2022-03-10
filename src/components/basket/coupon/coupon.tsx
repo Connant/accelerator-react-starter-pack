@@ -18,7 +18,7 @@ export default function Coupon (): JSX.Element {
     if (coupon === '') {
       dispatch(clearCoupon());
     }
-  }, []);
+  }, [couponValue, coupon, dispatch]);
 
   return (
     <div className='cart__coupon coupon'>
@@ -40,7 +40,7 @@ export default function Coupon (): JSX.Element {
             placeholder='Введите промокод'
             id='coupon'
             name='coupon'
-            value={coupon}
+            value={coupon.trim()}
             data-testid='coupon'
           />
           {couponValue !== null && couponValue !== CouponError.value && (

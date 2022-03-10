@@ -5,7 +5,7 @@ import { GuitarsType } from '../../../const';
 import { deleteFromCart } from '../../../store/redusers/client-reduser/client-reducer';
 import { resetTempItemCart, toggleIsCartDeleteOpen, deleteProductFromCart, closeAllModals } from '../../../store/redusers/data-reducer/data-reducer';
 import { getTempItemCart, getIsCartDeleteOpen } from '../../../store/selectors';
-import { replaceImagePath } from '../../../utils';
+import { prettify, replaceImagePath } from '../../../utils';
 
 
 export default function ModalCartDelete(): JSX.Element | null {
@@ -62,7 +62,7 @@ export default function ModalCartDelete(): JSX.Element | null {
                   </p>
                   <p className='modal__price-wrapper'>
                     <span className='modal__price'>Цена:</span>
-                    <span className='modal__price'>{price} ₽</span>
+                    <span className='modal__price'>{prettify(price)} ₽</span>
                   </p>
                 </div>
               </div>
